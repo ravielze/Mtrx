@@ -5,10 +5,11 @@ import java.util.Set;
 
 import mtrx.type.MatrixTrait;
 
-public class Matrix /* implements IMatrix */ {
+public abstract class Matrix /* implements IMatrix */ {
 
-    private int row, col;
+    private int row = 0, col = 0;
     private float[][] data;
+    private boolean hasChanged = true;
     private Set<MatrixTrait> traits = new HashSet<>();
 
     /**
