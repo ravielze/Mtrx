@@ -25,6 +25,11 @@ public enum MatrixTrait {
     /**
      * Alias untuk Eselon Baris terreduksi
      */
-    ESELON_R;
+    ESELON_R,
+    
+    /**
+     * Matriks Identitas.
+     */
+    IDENTITY;
     
 }
