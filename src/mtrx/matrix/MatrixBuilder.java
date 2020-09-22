@@ -203,6 +203,9 @@ public class MatrixBuilder {
                 }
             }
         }
+
+        this.data = newData;
+        this.row -= 1;
         return this;
     }
 
@@ -236,8 +239,33 @@ public class MatrixBuilder {
         return this;
     }
 
-    public void insertColoumn(){
-        //TODO
+    /**
+     * Menginsert kolom dengan menggeser indeks col ke kanan lalu
+     * memasukan nilainya ke indeks col.
+     * @param col indeks kolom yang akan digeser lalu dimasukkan
+     * @param value nilai yang akan diinsert
+     * @return MatrixBuilder
+     */
+    public MatrixBuilder insertColoumn(int col, double[] value){
+        double[][] newData = new double[this.row][this.col+1];
+        
+        int k = 0;
+        for (int i = 0; i < this.row; i++){
+            for (int j = this.col; j >= 0; j--){
+                if (j == col){
+                    newData[i][j] = (k > value.length) ? 0 : value[k];
+                    k++;
+                } else if (j > col) {
+                    newData[i][j+1] = this.data[i][j];
+                } else {
+                    newData[i][j] = this.data[i][j];
+                }
+            }
+        }
+
+        this.data = newData;
+        this.col += 1;
+        return this;
     }
 
     /**
