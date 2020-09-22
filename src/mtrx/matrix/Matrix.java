@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import mtrx.trait.MatrixTrait;
+import mtrx.utils.PUtils;
 
 public class Matrix implements IMatrix {
 
@@ -30,8 +31,7 @@ public class Matrix implements IMatrix {
 
     @Override
     public int getColCount() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.col;
     }
 
     @Override
@@ -42,8 +42,7 @@ public class Matrix implements IMatrix {
 
     @Override
     public void setElement(int row, int col, double value) {
-        // TODO Auto-generated method stub
-
+        this.data[row][col] = value;
     }
 
     @Override
@@ -54,8 +53,15 @@ public class Matrix implements IMatrix {
 
     @Override
     public void swapCol(int colA, int colB) {
-        // TODO Auto-generated method stub
-
+        final double[] tempA = new double[this.row], tempB = new double[this.row];
+        for (int i = 0; i < this.row; i++) {
+            tempA[i] = this.data[i][colA];
+            tempB[i] = this.data[i][colB];
+        }
+        for (int i = 0; i < this.row; i++) {
+            this.data[i][colB] = tempA[i];
+            this.data[i][colA] = tempB[i];
+        }
     }
 
     @Override
@@ -104,8 +110,11 @@ public class Matrix implements IMatrix {
 
     @Override
     public void fixPrecision() {
-        // TODO Auto-generated method stub
-
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
+                this.data[i][j] = PUtils.PRECISE(this.data[i][j]);
+            }
+        }
     }
 
     @Override
@@ -116,8 +125,19 @@ public class Matrix implements IMatrix {
 
     @Override
     public Matrix multiply(Matrix otherMatrix) {
-        // TODO Auto-generated method stub
-        return null;
+        final double[][] newData = new double[this.row][otherMatrix.getColCount()];
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < otherMatrix.getColCount(); j++) {
+                for (int k = 0; k < this.col; k++) {
+                    newData[i][j] += this.getElement(i, k) * otherMatrix.getElement(k, j);
+                }
+            }
+        }
+        
+        final Matrix newMatrix = (new MatrixBuilder(this).changeRow(this.row).
+        changeCol(otherMatrix.getColCount()).setValue(newData).build());
+        
+        return newMatrix;
     }
 
     @Override
@@ -128,7 +148,11 @@ public class Matrix implements IMatrix {
 
     @Override
     public boolean checkColValue(int col, double value) {
-        // TODO Auto-generated method stub
+        for (int i = 0; i < this.row; i++) {
+            if (this.data[i][col] == value) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -140,8 +164,13 @@ public class Matrix implements IMatrix {
 
     @Override
     public int countXRow(int row, double value) {
-        // TODO Auto-generated method stub
-        return 0;
+        int count = 0;
+        for (int j = 0; j < this.col; j++) {
+            if (this.data[row][j] == value) {
+                count += 1;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -152,8 +181,16 @@ public class Matrix implements IMatrix {
 
     @Override
     public int mostXCol(double value) {
-        // TODO Auto-generated method stub
-        return 0;
+        int most = 0, idx = 0;
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
+                if (countXCol(j, value) > most) {
+                    most = countXCol(j, value);
+                    idx = j;
+                }
+            }
+        }
+        return idx;
     }
     
 }
