@@ -1,7 +1,6 @@
 package mtrx.matrix;
 
-import mtrx.type.MatrixOperation;
-import mtrx.type.MatrixTrait;
+import mtrx.trait.MatrixTrait;
 
 public interface IMatrix {
 
@@ -22,7 +21,7 @@ public interface IMatrix {
      * @param row indeks baris elemen
      * @param col indeks kolom elemen
      */
-    public void getElement(int row, int col);
+    public double getElement(int row, int col);
 
     /**
      * Setter Nilai Elemen.
@@ -81,13 +80,21 @@ public interface IMatrix {
     public void updateTrait();
 
     /**
-     * Melakukan operasi pada setiap elemen di suatu baris.
+     * Melakukan operasi pada setiap elemen di suatu baris dengan baris lain.
      * Mengubah nilai hasChanged menjadi true.
      * @param row baris yang dioperasikan 
      * @param otherRow baris lain yang dioperasikan
      * @param operation operasi yang akan dilakukan, lihat docs MatrixOperation.
      */
     public void rowOperation(int row, int otherRow, MatrixOperation operation);
+
+    /**
+     * Melakukan operasi pada setiap elemen di suatu baris dengan konstanta.
+     * Mengubah nilai hasChanged menjadi true.
+     * @param row baris yang dioperasikan
+     * @param operation operasi yang akan dilakukan, lihat docs MatrixOperation.
+     */
+    public void rowOperation(int row, MatrixOperation operation);
 
     /**
      * Prosedur untuk memperbaiki presisi nilai 
@@ -105,7 +112,7 @@ public interface IMatrix {
      * Mengalikan matrix ini dengan matrix lain. 
      * @param otherMatrix Matrix baru hasil perkalian.
      */
-    public Matrix multiply(IMatrix otherMatrix);
+    public Matrix multiply(Matrix otherMatrix);
 
     /**
      * Mengecek suatu baris bernilai sesuatu.

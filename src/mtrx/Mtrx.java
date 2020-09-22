@@ -1,6 +1,6 @@
 package mtrx;
 
-import mtrx.type.MatrixOperation;
+import mtrx.matrix.MatrixOperation;
 
 public class Mtrx {
 

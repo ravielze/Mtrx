@@ -1,4 +1,4 @@
-package mtrx.type;
+package mtrx.trait;
 
 public enum MatrixTrait {
 

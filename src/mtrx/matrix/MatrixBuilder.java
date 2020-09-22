@@ -52,6 +52,21 @@ public class MatrixBuilder {
             }
         }
     }
+    /**
+     * Constructor copy matriks
+     * @param m matriks yang ingin dicopy
+     */
+    public MatrixBuilder(Matrix m){
+        this.row = m.getRowCount();
+        this.col = m.getColCount();
+        this.data = new double[row][col];
+
+        for (int i = 0; i < this.row; i++){
+            for (int j = 0; j < this.col; j++){
+                this.data[i][j] = m.getElement(i, j);
+            }
+        }
+    }
 
     /**
      * Mengubah jumlah baris
@@ -102,6 +117,38 @@ public class MatrixBuilder {
         }
 
         return this;
+    }
+    
+    /**
+     * Matrix Builder
+     * @return the matrix created.
+     */
+    public Matrix build(){
+        return new Matrix(this.row, this.col, this.data);
+    }
+
+    /**
+     * Prosedur menerima input terminal/console.
+     */
+    public void consoleInput(){
+        //TODO
+    }
+
+    /**
+     * Prosedur menerima input dari file
+     * @param fileName 
+     */
+    public void fileInput(String fileName){
+        //TODO
+    }
+
+    /**
+     * Cara lain untuk copy matrix
+     * @param m Matrix yang ingin dicopy
+     * @return matrix baru yang isinya sama
+     */
+    public static Matrix clone(Matrix m){
+        return (new MatrixBuilder(m)).build();
     }
     
 }
