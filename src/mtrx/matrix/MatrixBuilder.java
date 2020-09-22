@@ -71,7 +71,7 @@ public class MatrixBuilder {
     /**
      * Mengubah jumlah baris
      * @param n
-     * @return
+     * @return MatrixBuilder
      */
     public MatrixBuilder changeRow(int n){
         this.row = n;
@@ -81,7 +81,7 @@ public class MatrixBuilder {
     /**
      * Mengubah jumlah kolom
      * @param n
-     * @return
+     * @return MatrixBuilder
      */
     public MatrixBuilder changeCol(int n){
         this.col = n;
@@ -103,7 +103,7 @@ public class MatrixBuilder {
     /**
      * Mengisi matriks dengan nilai-nilai
      * @param value
-     * @return
+     * @return MatrixBuilder
      */
     public MatrixBuilder setValue(double... value){
         if (value.length == 0) return this;
@@ -116,6 +116,26 @@ public class MatrixBuilder {
             }
         }
 
+        return this;
+    }
+
+    /**
+     * Mengisi matriks dengan nilai-nilai
+     * @param value
+     * @return MatrixBuilder
+     */
+    public MatrixBuilder setValue(double[][] value){
+        this.row = value.length;
+        this.col = value[0].length;
+
+        double[][] newData = new double[this.row][this.col];
+        for (int i=0; i < this.row; i++){
+            for (int j=0; j < this.col; j++){
+                newData[i][j] = value[i][j];
+            }
+        }
+
+        this.data = newData;
         return this;
     }
     
@@ -140,6 +160,80 @@ public class MatrixBuilder {
      */
     public void fileInput(String fileName){
         //TODO
+    }
+
+    /**
+     * Prosedur menghapus sebuah kolom lalu dirapatkan.
+     * @param col kolom yang akan dihapus
+     * @return MatrixBuilder
+     */
+    public MatrixBuilder cutColoumn(int col){
+        double[][] newData = new double[this.row][this.col-1];
+        
+        for (int i = 0; i < this.row; i++){
+            int k = 0;
+            for (int j = 0; j < this.col; j++){
+                if (j != col){
+                    newData[i][k] = this.data[i][j];
+                    k++;
+                }
+            }
+        }
+        
+        this.data = newData;
+        this.col -= 1;
+        return this;
+    }
+
+    /**
+     * Prosedur menghapus sebuah baris lalu dirapatkan.
+     * @param row baris yang akan dihapus
+     * @return MatrixBuilder
+     */
+    public MatrixBuilder cutRow(int row){
+        double[][] newData = new double[this.row-1][this.col];
+        
+        int k = 0;
+        for (int i = 0; i < this.row; i++){
+            if (i != row) k++;
+
+            for (int j = 0; j < this.col; j++){
+                if (i != row){
+                    newData[k][j] = this.data[i][j];
+                }
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Membuat sebuah matriks dengan menghilangkan sebuah baris dan sebuah kolom.
+     * @param row indeks baris yang dihilangkan
+     * @param col indeks kolom yang dihilangkan
+     * @return MatrixBuilder
+     */
+    public MatrixBuilder subMatrix(int row, int col){
+        this.cutColoumn(col);
+        this.cutRow(row);
+        return this;
+    }
+
+    /**
+     * Memotong matriks dengan menghilangkan beberapa baris.
+     * Menghapus kolom dengan indeks [col1, col2].
+     * @param col1 indeks baris pertama
+     * @param col2 indeks baris kedua
+     * @return MatrixBuilder
+     */
+    public MatrixBuilder cutMultiColoumns(int col1, int col2){
+        int c1 = (col1 > this.data[0].length) ? this.data[0].length : col1;
+        int c2 = (col2 > this.data[0].length) ? this.data[0].length : col2;
+        if (c1 != c2){
+            for (int i = c1; i <= c2; i++){
+                this.cutColoumn(i);
+            }
+        }
+        return this;
     }
 
     /**
