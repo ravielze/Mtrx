@@ -1,6 +1,8 @@
 package mtrx;
 
-public class Mtrx{
+import mtrx.type.MatrixOperation;
+
+public class Mtrx {
 
     /**
      * Presisi yang akan digunakan oleh program.
@@ -10,6 +12,9 @@ public class Mtrx{
 
     public static void main(String args[]){
         System.out.println("Hello World!");
+        
+        MatrixOperation mo = (double a, double b) -> a+2*b;
+        System.out.println(mo.operate(5, 3));
     }
 
 }

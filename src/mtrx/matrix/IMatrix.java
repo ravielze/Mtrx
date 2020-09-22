@@ -83,12 +83,11 @@ public interface IMatrix {
     /**
      * Melakukan operasi pada setiap elemen di suatu baris.
      * Mengubah nilai hasChanged menjadi true.
-     * @param row baris yang dioperasikan (value, lihat docs MatrixOperation.)
-     * @param K konstanta, lihat docs MatrixOperation.
-     * @param otherRow baris lain yang dioperasikan (ovalue, lihat docs MatrixOperation.)
+     * @param row baris yang dioperasikan 
+     * @param otherRow baris lain yang dioperasikan
      * @param operation operasi yang akan dilakukan, lihat docs MatrixOperation.
      */
-    public void rowOperation(int row, int otherRow, double K, MatrixOperation operation);
+    public void rowOperation(int row, int otherRow, MatrixOperation operation);
 
     /**
      * Prosedur untuk memperbaiki presisi nilai 

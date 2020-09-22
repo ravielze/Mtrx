@@ -3,7 +3,7 @@
 cd %CD%/src/
 
 echo Compiling Program...
-javac -d bin ./*.java
+javac -d ../bin ./mtrx/*.java
 
 echo Running program...
 echo --------------------------------

@@ -1,20 +1,13 @@
 package mtrx.type;
 
-public enum MatrixOperation {
+public interface MatrixOperation {
 
     /**
-     * Operasi perkalian K*value + ovalue*0;
+     * Operate some operations.
+     * @param x
+     * @param y
+     * @return the result of operation
      */
-    MULTIPLY,
-
-    /**
-     * Operasi tambah-tambahan value + ovalue*K;
-     */
-    ADDITION,
-
-    /**
-     * Operasi kurang-kurangan value - ovalue*K;
-     */
-    REDUCTION;
+    double operate(double x, double y);
     
 }
