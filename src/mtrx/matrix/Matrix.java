@@ -53,14 +53,11 @@ public class Matrix implements IMatrix {
 
     @Override
     public void swapCol(int colA, int colB) {
-        final double[] tempA = new double[this.row], tempB = new double[this.row];
+        final double[] tempA = new double[this.row];
         for (int i = 0; i < this.row; i++) {
             tempA[i] = this.data[i][colA];
-            tempB[i] = this.data[i][colB];
-        }
-        for (int i = 0; i < this.row; i++) {
+            this.data[i][colA] = this.data[i][colB];
             this.data[i][colB] = tempA[i];
-            this.data[i][colA] = tempB[i];
         }
     }
 
