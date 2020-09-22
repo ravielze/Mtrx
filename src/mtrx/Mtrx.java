@@ -11,10 +11,6 @@ public class Mtrx {
     public static final int PRECISION = 3;
 
     public static void main(String args[]){
-        System.out.println("Hello World!");
-        
-        MatrixOperation mo = (double a, double b) -> a+2*b;
-        System.out.println(mo.operate(5, 3));
     }
 
 }

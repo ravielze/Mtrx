@@ -8,10 +8,10 @@ import mtrx.utils.PUtils;
 
 public class Matrix implements IMatrix {
 
-    protected int row = 0, col = 0;
-    protected double[][] data;
-    protected boolean hasChanged = true;
-    protected Set<MatrixTrait> traits = new HashSet<>();
+    private int row = 0, col = 0;
+    private double[][] data;
+    private boolean hasChanged = true;
+    private Set<MatrixTrait> traits = new HashSet<>();
 
     /**
      * Constructor
@@ -53,7 +53,7 @@ public class Matrix implements IMatrix {
 
     @Override
     public void swapCol(int colA, int colB) {
-        final double[] tempA = new double[this.row], tempB = new double[this.row];
+        double[] tempA = new double[this.row], tempB = new double[this.row];
         for (int i = 0; i < this.row; i++) {
             tempA[i] = this.data[i][colA];
             tempB[i] = this.data[i][colB];
@@ -125,7 +125,7 @@ public class Matrix implements IMatrix {
 
     @Override
     public Matrix multiply(Matrix otherMatrix) {
-        final double[][] newData = new double[this.row][otherMatrix.getColCount()];
+        double[][] newData = new double[this.row][otherMatrix.getColCount()];
         for (int i = 0; i < this.row; i++) {
             for (int j = 0; j < otherMatrix.getColCount(); j++) {
                 for (int k = 0; k < this.col; k++) {
@@ -134,20 +134,20 @@ public class Matrix implements IMatrix {
             }
         }
         
-        final Matrix newMatrix = (new MatrixBuilder(this).changeRow(this.row).
+        Matrix newMatrix = (new MatrixBuilder(this).changeRow(this.row).
         changeCol(otherMatrix.getColCount()).setValue(newData).build());
         
         return newMatrix;
     }
 
     @Override
-    public boolean checkRowValue(int row, double value) {
+    public boolean findRow(int row, double value) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean checkColValue(int col, double value) {
+    public boolean findCol(int col, double value) {
         for (int i = 0; i < this.row; i++) {
             if (this.data[i][col] == value) {
                 return true;
@@ -181,7 +181,7 @@ public class Matrix implements IMatrix {
 
     @Override
     public int mostXCol(double value) {
-        int most = 0, idx = 0;
+        int most = 0, idx = -1;
         for (int i = 0; i < this.row; i++) {
             for (int j = 0; j < this.col; j++) {
                 if (countXCol(j, value) > most) {

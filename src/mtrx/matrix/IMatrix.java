@@ -115,20 +115,20 @@ public interface IMatrix {
     public Matrix multiply(Matrix otherMatrix);
 
     /**
-     * Mengecek suatu baris bernilai sesuatu.
+     * Mencari suatu baris bernilai sesuatu.
      * @param row indeks baris yang ingin dicek.
      * @param value nilainya.
      * @return boolean true jika satu baris bernilai value, lainnya false.
      */
-    public boolean checkRowValue(int row, double value);
+    public boolean findRow(int row, double value);
 
     /**
-     * Mengecek suatu kolom bernilai sesuatu.
+     * Mencari suatu kolom bernilai sesuatu.
      * @param col indeks kolom yang ingin dicek.
      * @param value nilainya.
      * @return boolean true jika satu kolom bernilai value, lainnya false.
      */
-    public boolean checkColValue(int col, double value);
+    public boolean findCol(int col, double value);
     
     /**
      * Mengecek frekuensi value pada kolom tertentu.

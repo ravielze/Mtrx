@@ -236,6 +236,10 @@ public class MatrixBuilder {
         return this;
     }
 
+    public void insertColoumn(){
+        //TODO
+    }
+
     /**
      * Cara lain untuk copy matrix
      * @param m Matrix yang ingin dicopy
