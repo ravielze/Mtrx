@@ -154,13 +154,13 @@ public class Matrix implements IMatrix {
     }
 
     @Override
-    public int countXCol(int col, double value) {
+    public int countXinCol(int col, double value) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public int countXRow(int row, double value) {
+    public int countXinRow(int row, double value) {
         int count = 0;
         for (int j = 0; j < this.col; j++) {
             if (this.data[row][j] == value) {
@@ -181,7 +181,7 @@ public class Matrix implements IMatrix {
         int most = 0, idx = -1;
         for (int i = 0; i < this.row; i++) {
             for (int j = 0; j < this.col; j++) {
-                int count = countXCol(j, value);
+                int count = countXinCol(j, value);
                 if (count > most) {
                     most = count;
                     idx = j;
@@ -192,25 +192,25 @@ public class Matrix implements IMatrix {
     }
 
     @Override
-    public int findFirstXCol(int col, double value) {
+    public int findFirstXinCol(int col, double value) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public int findFirstXRow(int row, double value) {
+    public int findFirstXinRow(int row, double value) {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public boolean isAllXCol(int col, double value) {
+    public boolean isAllXinCol(int col, double value) {
         // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean isAllXRow(int col, double value) {
+    public boolean isAllXinRow(int col, double value) {
         // TODO Auto-generated method stub
         return false;
     }

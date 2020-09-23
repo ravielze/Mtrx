@@ -136,7 +136,7 @@ public interface IMatrix {
      * @param value nilai yang dicari
      * @return indeks baris yang berisi nilai value pertama, jika tidak ada kembalikan -1
      */
-    public int findFirstXCol(int col, double value);
+    public int findFirstXinCol(int col, double value);
 
     /**
      * Mencari indeks pertama bernilai X pada suatu baris
@@ -144,7 +144,7 @@ public interface IMatrix {
      * @param value nilai yang dicari
      * @return indeks kolom yang berisi nilai value pertama, jika tidak ada kembalikan -1
      */
-    public int findFirstXRow(int row, double value);
+    public int findFirstXinRow(int row, double value);
 
     /**
      * Mengecek apakah suatu kolom semuanya bernilai X.
@@ -152,7 +152,7 @@ public interface IMatrix {
      * @param value nilai
      * @return boolean true jika semuanya adalah X, false jika tidak.
      */
-    public boolean isAllXCol(int col, double value);
+    public boolean isAllXinCol(int col, double value);
 
     /**
      * Mengecek apakah suatu baris semuanya bernilai X.
@@ -160,7 +160,7 @@ public interface IMatrix {
      * @param value nilai
      * @return boolean true jika semuanya adalah X, false jika tidak.
      */
-    public boolean isAllXRow(int col, double value);
+    public boolean isAllXinRow(int col, double value);
     
     /**
      * Mengecek frekuensi value pada kolom tertentu.
@@ -168,15 +168,15 @@ public interface IMatrix {
      * @param value nilainya.
      * @return ada berapa kali kemunculan value pada kolom col.
      */
-    public int countXCol(int col, double value);
+    public int countXinCol(int col, double value);
 
     /**
      * Mengecek frekuensi value pada baris tertentu.
      * @param col indeks baris yang ingin dicek.
      * @param value nilainya.
-     * @return ada berapa kali kemunculan value pada kolom row.
+     * @return ada berapa kali kemunculan value pada baris row.
      */
-    public int countXRow(int row, double value);
+    public int countXinRow(int row, double value);
 
     /**
      * Mengembalikan indeks baris yang memiliki value terbanyak.
