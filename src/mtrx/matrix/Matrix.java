@@ -31,8 +31,7 @@ public class Matrix implements IMatrix {
 
     @Override
     public int getRowCount() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.col;
     }
 
     @Override
@@ -42,8 +41,7 @@ public class Matrix implements IMatrix {
 
     @Override
     public double getElement(int row, int col) {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.data[row][col];
     }
 
     @Override
@@ -53,7 +51,12 @@ public class Matrix implements IMatrix {
 
     @Override
     public void swapRow(int rowA, int rowB) {
-        // TODO Auto-generated method stub
+        double[] temp = new double[this.col];
+        for (int i = 0; i < this.col; i++) {
+            temp[i] = this.data[rowA][i];
+            this.data[rowA][i] = this.data[rowB][i];
+            this.data[rowB][i] = temp[i];
+        }
 
     }
 
@@ -69,8 +72,24 @@ public class Matrix implements IMatrix {
 
     @Override
     public void show(boolean splFormat) {
-        // TODO Auto-generated method stub
-
+        if (splFormat) {
+            for (int i = 0; i < this.row; i++) {
+                for (int j = 0; j < this.col; j++) {
+                    if (j != this.col - 1) {
+                        System.out.print(this.data[i][j] + "X" + j+1 + " ");
+                    } else {
+                        System.out.println("= " + this.data[i][j]);
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < this.row; i++) {
+                for (int j = 0; j < this.col; j++) {
+                    System.out.printf("%4d", this.data[i][j]);
+                }
+                System.out.println();
+            }
+        }
     }
 
     @Override
@@ -137,8 +156,18 @@ public class Matrix implements IMatrix {
 
     @Override
     public void transpose() {
-        // TODO Auto-generated method stub
+        this.hasChanged = true;
 
+        double[][] Tdata = new double[this.col][this.row];
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
+                Tdata[j][i] = this.data[i][j];
+            }
+        }
+
+        this.data = new double[this.col][this.row];
+        this.data = Tdata;
+        // **********TOLONG DICEK***********
     }
 
     @Override
@@ -160,8 +189,13 @@ public class Matrix implements IMatrix {
 
     @Override
     public boolean findRow(int row, double value) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean allVal = true;
+        int i = 0;
+        while (allVal) {
+            if (this.data[row][i] != value) allVal = false;
+            i++;
+        }
+        return allVal;
     }
 
     @Override
@@ -176,8 +210,14 @@ public class Matrix implements IMatrix {
 
     @Override
     public int countXinCol(int col, double value) {
-        // TODO Auto-generated method stub
-        return 0;
+        int count = 0;
+
+        for (int i = 0; i < this.row; i++) {
+            if (this.data[i][col] == value) {
+                count += 1;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -193,8 +233,17 @@ public class Matrix implements IMatrix {
 
     @Override
     public int mostXRow(double value) {
-        // TODO Auto-generated method stub
-        return 0;
+        int most = 0, idx = -1;
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
+                int count = countXinRow(i, value);
+                if (count > most) {
+                    most = count;
+                    idx = i;
+                }
+            }
+        }
+        return idx;
     }
 
     @Override
@@ -214,8 +263,15 @@ public class Matrix implements IMatrix {
 
     @Override
     public int findFirstXinCol(int col, double value) {
-        // TODO Auto-generated method stub
-        return 0;
+        int idx = -1;
+        
+        for (int i = 0; i < this.row; i++) {
+            if (this.data[i][col] == value) {
+                idx = i;
+                break;
+            }
+        }
+        return idx;
     }
 
     @Override
@@ -226,8 +282,15 @@ public class Matrix implements IMatrix {
 
     @Override
     public boolean isAllXinCol(int col, double value) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isAllX = true;
+
+        for (int i = 0; i < this.row; i++) {
+            if (this.data[i][col] != value) {
+                isAllX = false;
+                break;
+            }
+        }
+        return isAllX;
     }
 
     @Override
