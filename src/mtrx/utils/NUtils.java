@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 import mtrx.Mtrx;
 
-public class PUtils {
+public class NUtils {
 
     public static final double PRECISE(double val){
         return BigDecimal.valueOf(val).setScale(Mtrx.PRECISION, RoundingMode.HALF_UP).doubleValue();

@@ -129,6 +129,38 @@ public interface IMatrix {
      * @return boolean true jika satu kolom bernilai value, lainnya false.
      */
     public boolean findCol(int col, double value);
+
+    /**
+     * Mencari indeks pertama bernilai X pada suatu kolom
+     * @param col indeks kolom
+     * @param value nilai yang dicari
+     * @return indeks baris yang berisi nilai value pertama, jika tidak ada kembalikan -1
+     */
+    public int findFirstXCol(int col, double value);
+
+    /**
+     * Mencari indeks pertama bernilai X pada suatu baris
+     * @param row indeks baris
+     * @param value nilai yang dicari
+     * @return indeks kolom yang berisi nilai value pertama, jika tidak ada kembalikan -1
+     */
+    public int findFirstXRow(int row, double value);
+
+    /**
+     * Mengecek apakah suatu kolom semuanya bernilai X.
+     * @param col indeks kolom
+     * @param value nilai
+     * @return boolean true jika semuanya adalah X, false jika tidak.
+     */
+    public boolean isAllXCol(int col, double value);
+
+    /**
+     * Mengecek apakah suatu baris semuanya bernilai X.
+     * @param col indeks baris
+     * @param value nilai
+     * @return boolean true jika semuanya adalah X, false jika tidak.
+     */
+    public boolean isAllXRow(int col, double value);
     
     /**
      * Mengecek frekuensi value pada kolom tertentu.

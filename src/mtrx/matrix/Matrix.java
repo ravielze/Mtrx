@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import mtrx.trait.MatrixTrait;
-import mtrx.utils.PUtils;
+import mtrx.utils.NUtils;
 
 public class Matrix implements IMatrix {
 
@@ -53,11 +53,11 @@ public class Matrix implements IMatrix {
 
     @Override
     public void swapCol(int colA, int colB) {
-        double[] tempA = new double[this.row], tempB = new double[this.row];
+        double[] temp = new double[this.row];
         for (int i = 0; i < this.row; i++) {
-            tempA[i] = this.data[i][colA];
+            temp[i] = this.data[i][colA];
             this.data[i][colA] = this.data[i][colB];
-            this.data[i][colB] = tempA[i];
+            this.data[i][colB] = temp[i];
         }
     }
 
@@ -109,7 +109,7 @@ public class Matrix implements IMatrix {
     public void fixPrecision() {
         for (int i = 0; i < this.row; i++) {
             for (int j = 0; j < this.col; j++) {
-                this.data[i][j] = PUtils.PRECISE(this.data[i][j]);
+                this.data[i][j] = NUtils.PRECISE(this.data[i][j]);
             }
         }
     }
@@ -181,13 +181,38 @@ public class Matrix implements IMatrix {
         int most = 0, idx = -1;
         for (int i = 0; i < this.row; i++) {
             for (int j = 0; j < this.col; j++) {
-                if (countXCol(j, value) > most) {
-                    most = countXCol(j, value);
+                int count = countXCol(j, value);
+                if (count > most) {
+                    most = count;
                     idx = j;
                 }
             }
         }
         return idx;
+    }
+
+    @Override
+    public int findFirstXCol(int col, double value) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int findFirstXRow(int row, double value) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean isAllXCol(int col, double value) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isAllXRow(int col, double value) {
+        // TODO Auto-generated method stub
+        return false;
     }
     
 }
