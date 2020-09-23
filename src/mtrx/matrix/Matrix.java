@@ -19,6 +19,12 @@ public class Matrix implements IMatrix {
     public Matrix(int row, int col, double[][] data){
         this.row = row;
         this.col = col;
+        this.data = new double[row][col];
+        for (int i = 0; i < row; i++){
+            for (int j = 0; j < col; j++){
+                this.data[i][j] = (data.length <= i || data[0].length <= j) ? 0 : data[i][j]; 
+            }
+        }
         this.data = data;
         this.updateTrait();
     }
@@ -214,5 +220,5 @@ public class Matrix implements IMatrix {
         // TODO Auto-generated method stub
         return false;
     }
-    
+
 }
