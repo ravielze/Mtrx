@@ -191,5 +191,27 @@ public interface IMatrix {
      * @return indeks kolom dengan value terbanyak.
      */
     public int mostXCol(double value);
+
+    /**
+     * Mendapatkan nilai determinan.
+     * Digunakan metode <b>reduksi baris</b>.
+     * @return nilai determinant
+     */
+    public double determinant();
+
+    /**
+     * Mendapatkan nilai determinan.
+     * Digunakan metode <b>Kofaktor</b>.
+     * @return nilai determinant
+     */
+    public double determinantWithCofactor();
+
+    /**
+     * Mendapatkan nilai cofactor
+     * @param row indeks baris
+     * @param col indeks kolom
+     * @return cofactor
+     */
+    public double cofactor(int row, int col);
     
 }

@@ -89,7 +89,22 @@ public class Matrix implements IMatrix {
 
     @Override
     public void updateTrait() {
-        // TODO Auto-generated method stub
+        this.traits.clear();
+        boolean identity = false, allZero = true;
+        if (this.getRowCount() == this.getColCount()){
+            this.traits.add(MatrixTrait.SQUARE);
+            identity = true;
+        }
+            
+        for (int i = 0; i < this.row; i++){
+            for (int j = 0; j < this.col; j++){
+                allZero = allZero && (this.data[i][j] == 0);
+                identity = identity && (this.data[i][j] == (((i == j) ? 1 : 0)));
+            }
+        }
+
+        if (identity) this.traits.add(MatrixTrait.IDENTITY);
+        if (allZero) this.traits.add(MatrixTrait.ZERO);
 
     }
 
@@ -219,6 +234,89 @@ public class Matrix implements IMatrix {
     public boolean isAllXinRow(int col, double value) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public double cofactor(int row, int col) {
+        if (!this.hasTrait(MatrixTrait.SQUARE)) return Double.NaN;
+        if (this.hasTrait(MatrixTrait.IDENTITY)) return 1;
+
+        Matrix cf = (new MatrixBuilder(this)).subMatrix(row, col).build();
+        int size = cf.getRowCount();
+
+        if (size == 1){
+            return cf.getElement(0, 0);
+        } else {
+            return ((row+col+2)%2==0 ? 1.0D : -1.0D)*cf.determinant();
+        }
+    }
+
+    @Override
+    public double determinant() {
+        if (!this.hasTrait(MatrixTrait.SQUARE)) return Double.NaN;
+        if (this.hasTrait(MatrixTrait.IDENTITY)) return 1;
+
+        int size = this.row;
+        
+        /* Supaya kalau 2x2 tidak melewati proses yang ribet
+           Melakukan ad-bc (sama saja jika tidak ada if else ini) */
+        if (size == 2){
+            return (this.getElement(0, 0)*this.getElement(1, 1)) - (this.getElement(0, 1)*this.getElement(1, 0));
+        }
+
+        Matrix temp = MatrixBuilder.clone(this);
+        int i, j;
+    
+        float result = 1;
+        int swapped = 0;
+    
+        while (size > 0){
+            boolean swap = false;
+            i = 0;
+            if (temp.getElement(size-1, size-1) == 0){
+                while (i < (size-1) && (!swap)){
+                    if (temp.getElement(i, size-1) == 0){
+                        i++;
+                    } else {
+                        swap = true;
+                    }
+                }
+            }
+            if (i == (size-1) && (size > 1)){
+                return 0;
+            } else if (swap){
+                for(j = 0; j < size; j++){
+                    temp.swapRow(i, size-1);
+                }
+            }
+            for (i = 0; i < (size-1); i++){
+                for(j=0; j<size; j++){
+
+                    double konstanta = temp.getElement(i, size-1)/temp.getElement(size-1, size-1);
+                    temp.rowOperation(i, size-1, (x,y) -> x-(y*konstanta));
+
+                }
+            }
+            result *= temp.getElement(size-1, size-1);
+            swapped = (swapped+(swap ? 1 : 0))%2;
+            size--;
+        }
+
+        float finalresult = (result*(swapped==0 ? 1.0f : -1.0f));
+        return NUtils.PRECISE(finalresult);
+    }
+
+    @Override
+    public double determinantWithCofactor() {
+        if (this.hasTrait(MatrixTrait.ZERO)) return 0;
+        for (int i = 0; i < this.col; i++){
+            if (this.isAllXinCol(i, 0.0D)) return 0; 
+        }
+        for (int i = 0; i < this.row; i++){
+            if (this.isAllXinRow(i, 0.0D)) return 0; 
+        }
+        //TODO not yet done
+        return 0;
     }
 
 }

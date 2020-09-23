@@ -15,7 +15,7 @@ public class Gauss implements MatrixMethod{
     public Gauss(Matrix matrix){
         this.matrix = (new MatrixBuilder(matrix)).build();
 
-        this.swapTimes = 0 + this.matrix.refine();
+        this.swapTimes = 0;
         this.hasSolution = false;
         this.operate();
     }
