@@ -21,7 +21,7 @@ public class Crammer {
         }
 
         for (int j = 0; j < this.a.getColCount(); j++) {
-            result[j] = ((new MatrixBuilder()).cutColoumn(j).insertColoumn(j, temp).build()).
+            result[j] = ((new MatrixBuilder(this.a)).cutColoumn(j).insertColoumn(j, temp).build()).
             determinant() / det;
         }
     }
