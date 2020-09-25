@@ -54,6 +54,7 @@ public interface IMatrix {
      *                  jika false mengeluarkan dalam bentuk tabel
      */
     public void show(boolean splFormat);
+    
     /**
      * Mengeluarkan matrix ke suatu file
      * @param fileName nama file 

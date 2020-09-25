@@ -31,7 +31,7 @@ public class Matrix implements IMatrix {
 
     @Override
     public int getRowCount() {
-        return this.col;
+        return this.row;
     }
 
     @Override
