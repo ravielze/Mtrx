@@ -4,6 +4,7 @@ import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
 import mtrx.matrix.MatrixOperation;
 import mtrx.trait.MatrixTrait;
+import mtrx.augmatrix.AugMatrix;
 
 public class Gauss implements MatrixMethod{
 
@@ -21,17 +22,7 @@ public class Gauss implements MatrixMethod{
     }
 
 	private void operate() {
-        /*this.hasSolution = true;
-        int r = matrix.getRowCount();
-        int c = matrix.getColCount();
-
-        while (this.hasSolution){
-            if (matrix.getElement(r-1, c-1) == 0.0D){
-
-            }
-        }*/
-
-        //jangan lupa diset jadi false klo gada solution
+        for (int i = 0; i < this.matrix.getColCount(); )
     }
     /**
      * 1 2 3
