@@ -1,6 +1,6 @@
 package mtrx;
 
-import mtrx.matrix.MatrixOperation;
+import mtrx.matrix.MatrixBuilder;
 
 public class Mtrx {
 
@@ -11,6 +11,8 @@ public class Mtrx {
     public static final int PRECISION = 3;
 
     public static void main(String args[]){
+        MatrixBuilder mb = new MatrixBuilder();
+        mb.fileInput("test.txt").build().show(false);
     }
 
 }
