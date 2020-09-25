@@ -1,6 +1,7 @@
 package mtrx;
 
-import mtrx.matrix.MatrixOperation;
+import mtrx.matrix.Matrix;
+import mtrx.matrix.MatrixBuilder;
 
 public class Mtrx {
 
@@ -11,6 +12,14 @@ public class Mtrx {
     public static final int PRECISION = 3;
 
     public static void main(String args[]){
+        MatrixBuilder mb = new MatrixBuilder();
+        Matrix m = mb.fileInput("test.txt").build();
+        m.show(false);
+        Matrix m2 = m.multiply(m);
+        m2.show(false);
+        System.out.println(m.determinant());
+        System.out.println(m.determinantWithCofactor());
+        System.out.println(m2.determinant());
     }
 
 }

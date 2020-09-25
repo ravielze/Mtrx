@@ -157,11 +157,11 @@ public interface IMatrix {
 
     /**
      * Mengecek apakah suatu baris semuanya bernilai X.
-     * @param col indeks baris
+     * @param row indeks baris
      * @param value nilai
      * @return boolean true jika semuanya adalah X, false jika tidak.
      */
-    public boolean isAllXinRow(int col, double value);
+    public boolean isAllXinRow(int row, double value);
     
     /**
      * Mengecek frekuensi value pada kolom tertentu.

@@ -1,5 +1,8 @@
 package mtrx.matrix;
 
+import java.io.File;
+import java.util.Scanner;
+
 public class MatrixBuilder {
 
     private int row = 0, col = 0;
@@ -148,18 +151,53 @@ public class MatrixBuilder {
     }
 
     /**
-     * Prosedur menerima input terminal/console.
+     * Fungsi menerima input terminal/console.
+     * @return MatrixBuilder
      */
-    public void consoleInput(){
-        //TODO
+    public MatrixBuilder consoleInput(){
+        Scanner s = new Scanner(System.in);
+        System.out.print("Masukkan Baris: ");
+        this.row = s.nextInt();
+        System.out.print("Masukkan Kolom: ");
+        this.col = s.nextInt();
+		this.data = new double[this.row][this.col];
+		for (int i=0; i<this.row; i++) {
+            for (int j=0 ; j<this.col; j++){
+                this.data[i][j] = s.nextDouble();
+            }
+        }
+        s.close();
+        return this;
     }
 
     /**
      * Prosedur menerima input dari file
      * @param fileName 
+     * @return MatrixBuilder
      */
-    public void fileInput(String fileName){
-        //TODO
+    public MatrixBuilder fileInput(String fileName){
+        try {
+            File file = new File(new File("../test/"+fileName).getCanonicalPath());
+            Scanner scanner = new Scanner(file);
+            this.row = scanner.nextInt();
+            this.col = scanner.nextInt();
+
+            if (scanner.hasNextLine())
+                scanner.nextLine();
+
+            this.data = new double[row][col];
+            for (int i = 0; i < this.row; i++){
+                for (int j = 0; j < this.col; j++){
+                    this.data[i][j] = (scanner.hasNext() ? scanner.nextDouble() : 0.0D);
+                }
+                if (scanner.hasNextLine())
+                scanner.nextLine();
+            }
+            scanner.close();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return this;
     }
 
     /**
@@ -195,13 +233,13 @@ public class MatrixBuilder {
         
         int k = 0;
         for (int i = 0; i < this.row; i++){
-            if (i != row) k++;
 
             for (int j = 0; j < this.col; j++){
                 if (i != row){
                     newData[k][j] = this.data[i][j];
                 }
             }
+            if (i != row) k++;
         }
 
         this.data = newData;

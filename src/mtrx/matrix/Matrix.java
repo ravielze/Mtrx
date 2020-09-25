@@ -85,7 +85,7 @@ public class Matrix implements IMatrix {
         } else {
             for (int i = 0; i < this.row; i++) {
                 for (int j = 0; j < this.col; j++) {
-                    System.out.printf("%4d", this.data[i][j]);
+                    System.out.printf("%.3f ", this.data[i][j]);
                 }
                 System.out.println();
             }
@@ -276,8 +276,15 @@ public class Matrix implements IMatrix {
 
     @Override
     public int findFirstXinRow(int row, double value) {
-        // TODO Auto-generated method stub
-        return 0;
+        int idx = -1;
+        
+        for (int i = 0; i < this.col; i++) {
+            if (this.data[row][i] == value) {
+                idx = i;
+                break;
+            }
+        }
+        return idx;
     }
 
     @Override
@@ -294,9 +301,16 @@ public class Matrix implements IMatrix {
     }
 
     @Override
-    public boolean isAllXinRow(int col, double value) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean isAllXinRow(int row, double value) {
+        boolean isAllX = true;
+
+        for (int i = 0; i < this.col; i++) {
+            if (this.data[row][i] != value) {
+                isAllX = false;
+                break;
+            }
+        }
+        return isAllX;
     }
 
     @Override
@@ -378,8 +392,20 @@ public class Matrix implements IMatrix {
         for (int i = 0; i < this.row; i++){
             if (this.isAllXinRow(i, 0.0D)) return 0; 
         }
-        //TODO not yet done
-        return 0;
+
+        double result = 0.0D;
+        if (this.mostXCol(0.0D) != -1){
+            int j = this.mostXCol(0.0D);
+            for (int i = 0; i < this.row; i++){
+                result += this.getElement(i, j)*cofactor(i, j);
+            }
+        } else {
+            int i = (this.mostXRow(0.0D) != -1) ? this.mostXCol(0.0D) : 0;
+            for (int j = 0; j < this.col; j++){
+                result += this.getElement(i, j)*cofactor(i, j);
+            }
+        }
+        return result;
     }
 
 }
