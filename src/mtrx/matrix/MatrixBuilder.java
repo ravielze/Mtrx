@@ -179,14 +179,19 @@ public class MatrixBuilder {
         try {
             File file = new File(new File("../test/"+fileName).getCanonicalPath());
             Scanner scanner = new Scanner(file);
-            scanner.useDelimiter(" ");
             this.row = scanner.nextInt();
             this.col = scanner.nextInt();
+
+            if (scanner.hasNextLine())
+                scanner.nextLine();
+
             this.data = new double[row][col];
             for (int i = 0; i < this.row; i++){
                 for (int j = 0; j < this.col; j++){
                     this.data[i][j] = (scanner.hasNext() ? scanner.nextDouble() : 0.0D);
                 }
+                if (scanner.hasNextLine())
+                scanner.nextLine();
             }
             scanner.close();
         } catch (Exception ex){
@@ -228,13 +233,13 @@ public class MatrixBuilder {
         
         int k = 0;
         for (int i = 0; i < this.row; i++){
-            if (i != row) k++;
 
             for (int j = 0; j < this.col; j++){
                 if (i != row){
                     newData[k][j] = this.data[i][j];
                 }
             }
+            if (i != row) k++;
         }
 
         this.data = newData;
