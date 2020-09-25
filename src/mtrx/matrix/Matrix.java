@@ -408,4 +408,30 @@ public class Matrix implements IMatrix {
         return result;
     }
 
+    public Matrix adjoint() {
+        Matrix result = (new MatrixBuilder(this)).build();
+
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; i++) {
+                result.setElement(i, j, cofactor(i, j));
+            }
+        }
+
+        result.transpose();
+        return result;
+    }
+
+    public Matrix inverse() {
+        Matrix result = (new MatrixBuilder(this)).build().adjoint();
+        double newEl;
+
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; i++) {
+                newEl = getElement(i, j) / result.determinant();
+                result.setElement(i, j, NUtils.PRECISE(newEl));
+            }
+        }
+
+        return result;
+    }
 }
