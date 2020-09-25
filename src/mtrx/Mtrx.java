@@ -1,5 +1,6 @@
 package mtrx;
 
+import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
 
 public class Mtrx {
@@ -12,7 +13,13 @@ public class Mtrx {
 
     public static void main(String args[]){
         MatrixBuilder mb = new MatrixBuilder();
-        mb.fileInput("test.txt").build().show(false);
+        Matrix m = mb.fileInput("test.txt").build();
+        m.show(false);
+        Matrix m2 = m.multiply(m);
+        m2.show(false);
+        System.out.println(m.determinant());
+        System.out.println(m.determinantWithCofactor());
+        System.out.println(m2.determinant());
     }
 
 }
