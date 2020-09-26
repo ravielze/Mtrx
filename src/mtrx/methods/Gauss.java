@@ -4,6 +4,7 @@ import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
 import mtrx.matrix.MatrixOperation;
 import mtrx.trait.MatrixTrait;
+import mtrx.utils.NUtils;
 import mtrx.augmatrix.AugMatrix;
 
 public class Gauss implements MatrixMethod{
@@ -15,18 +16,26 @@ public class Gauss implements MatrixMethod{
 
     public Gauss(Matrix matrix){
         this.matrix = (new MatrixBuilder(matrix)).build();
-
+        this.result = (new MatrixBuilder(matrix)).build();
         this.swapTimes = 0;
         this.hasSolution = false;
         this.operate();
     }
 
 	private void operate() {
-        int i, l, row, j = 0, kValid, bValid = 0;
+        int i, l, row, j, kValid, bValid = 0;
         boolean found, valid, need;
-        // buat nuker2
+
         for (i = 0; i < this.matrix.getRowCount(); i++) {
+            for (j = 0; j < this.matrix.getColCount(); j++) {
+                this.result.setElement(i, j, this.matrix.getElement(i, j));               
+            }
+        }
+
+        // buat nuker2
+        for (i = 0; i < this.result.getRowCount(); i++) {
             found = false;
+            j = 0;
             //ini jaga-jaga aja punten
         // while (i < this.matrix.getRowCount() && swapped != 2) {
             // if (this.matrix.getElement(0, 0) == 0 && this.matrix.getElement(i, 0) != 0) {
@@ -35,24 +44,24 @@ public class Gauss implements MatrixMethod{
             //     if (this.matrix.findCol(0, 1)) row = this.matrix.findFirstXinCol(0, 1);
             //     else row = i;
             //     this.matrix.swapRow(0, row);
-                while (j < this.matrix.getRowCount() && !found) {
+                while (j < this.result.getRowCount() && !found) {
             // for (j = 0; j < this.matrix.getRowCount(); j++) {
-                    if (this.matrix.findFirstXinCol(j, 1) > i) {
+                    if (this.result.findFirstXinCol(j, 1) > i) {
                         found = true;
-                        row = this.matrix.findFirstXinCol(j, 1);
-                        this.matrix.swapRow(i, row);
+                        row = this.result.findFirstXinCol(j, 1);
+                        this.result.swapRow(i, row);
                         this.swapTimes++;
                     }
-                    if (this.matrix.getElement(i, j) == 0) {
+                    if (NUtils.ISEQUAL(this.result.getElement(i, j), 0)) {
                         l = i+1;
                         need = false;
-                        while (l < this.matrix.getRowCount() && !need) {
+                        while (l < this.result.getRowCount() && !need) {
                         // for (l = i+1; l < this.matrix.getRowCount(); l++) {
-                            if (this.matrix.getElement(l, j) != 0) {
+                            if (!NUtils.ISEQUAL(this.result.getElement(l, j), 0)) {
                                 need = true;
                                 found = true;
                                 this.swapTimes++;
-                                this.matrix.swapRow(i, l);
+                                this.result.swapRow(i, l);
                                     // if (i == 0 && j == 0) {
                                     //     if (this.matrix.findCol(1, 1)) row = this.matrix.findFirstXinCol(1, 1);
                                     //     else row = l;
@@ -65,53 +74,53 @@ public class Gauss implements MatrixMethod{
             }
         }
 
-        for (i = 0; i < this.matrix.getRowCount(); i++) {
+        for (i = 0; i < this.result.getRowCount(); i++) {
             found = false;
             j = 0;
 
-            while (j < this.matrix.getRowCount() && !found) {
-                if (this.matrix.getElement(i, j) != 0) found = true;
+            while (j < this.result.getRowCount() && !found) {
+                if (!NUtils.ISEQUAL(this.result.getElement(i, j), 0)) found = true;
                 else j++;
             }
 
-            if (i == 0) this.matrix.rowOperation(0, (x, y) -> x/(this.matrix.getElement(0, 0)));
+            if (i == 0) this.result.rowOperation(0, (x, y) -> x/(this.result.getElement(0, 0)));
             else {
-                if (this.matrix.getElement(i-1, j) == 0) {
-                    final double val = this.matrix.getElement(i, j);
-                    this.matrix.rowOperation(i, j, (x, y) -> x / val);
+                if (NUtils.ISEQUAL(this.result.getElement(i-1, j), 0)) {
+                    final double val = this.result.getElement(i, j);
+                    this.result.rowOperation(i, j, (x, y) -> x / val);
                 }
                 else {
-                    final double val = this.matrix.getElement(i, j) / this.matrix.getElement(i-1, j);
+                    final double val = this.result.getElement(i, j) / this.result.getElement(i-1, j);
                     final int temp_row = i;
-                    this.matrix.rowOperation(i, i-1, (x, y) -> x - val*(temp_row-1));
+                    this.result.rowOperation(i, i-1, (x, y) -> x - val*(temp_row-1));
                 }
             }
         }
 
-        i = this.matrix.getRowCount()-1;
+        i = this.result.getRowCount()-1;
         while (i >= 0 && !this.hasSolution) {
             kValid = 0;
             j = 0;
             valid = false;
-            while (j < this.matrix.getColCount() && !valid) {
-                if (this.matrix.getElement(i, j) == 0) {
+            while (j < this.result.getColCount() && !valid) {
+                if (NUtils.ISEQUAL(this.result.getElement(i, j), 0)) {
                     kValid++;
-                    if (kValid == this.matrix.getColCount()) {
+                    if (kValid == this.result.getColCount()) {
                         bValid++;
                     }
                 }
-                if (this.matrix.getElement(i, j) != 0) {
-                    if (j == this.matrix.getColCount()-1 && kValid == this.matrix.getColCount()-1) {
+                else {
+                    if (j == this.result.getColCount()-1 && kValid == this.result.getColCount()-1) {
                         this.hasSolution = false;
                     }
-                    if (j != this.matrix.getColCount()-1) {
+                    if (j != this.result.getColCount()-1) {
                         valid = true;
                         this.hasSolution = true;
                     }
                 }
                 j++;
             }
-            if (bValid == this.matrix.getRowCount()) this.hasSolution = false;
+            if (bValid == this.result.getRowCount()) this.hasSolution = false;
             i--;
         }
     }
