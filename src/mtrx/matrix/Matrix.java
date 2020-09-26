@@ -117,8 +117,8 @@ public class Matrix implements IMatrix {
             
         for (int i = 0; i < this.row; i++){
             for (int j = 0; j < this.col; j++){
-                allZero = allZero && (this.data[i][j] == 0);
-                identity = identity && (this.data[i][j] == (((i == j) ? 1 : 0)));
+                allZero = allZero && (NUtils.ISEQUAL(this.data[i][j], 0.0D));
+                identity = identity && (NUtils.ISEQUAL(this.data[i][j], (((i == j) ? 1 : 0)));
             }
         }
 
@@ -201,7 +201,7 @@ public class Matrix implements IMatrix {
     @Override
     public boolean findCol(int col, double value) {
         for (int i = 0; i < this.row; i++) {
-            if (this.data[i][col] == value) {
+            if (NUtils.ISEQUAL(this.data[i][col], value)) {
                 return true;
             }
         }
@@ -213,7 +213,7 @@ public class Matrix implements IMatrix {
         int count = 0;
 
         for (int i = 0; i < this.row; i++) {
-            if (this.data[i][col] == value) {
+            if (NUtils.ISEQUAL(this.data[i][col], value)) {
                 count += 1;
             }
         }
@@ -224,7 +224,7 @@ public class Matrix implements IMatrix {
     public int countXinRow(int row, double value) {
         int count = 0;
         for (int j = 0; j < this.col; j++) {
-            if (this.data[row][j] == value) {
+            if (NUtils.ISEQUAL(this.data[row][j], value)) {
                 count += 1;
             }
         }
@@ -266,7 +266,7 @@ public class Matrix implements IMatrix {
         int idx = -1;
         
         for (int i = 0; i < this.row; i++) {
-            if (this.data[i][col] == value) {
+            if (NUtils.ISEQUAL(this.data[i][col], value)) {
                 idx = i;
                 break;
             }
@@ -279,7 +279,7 @@ public class Matrix implements IMatrix {
         int idx = -1;
         
         for (int i = 0; i < this.col; i++) {
-            if (this.data[row][i] == value) {
+            if (NUtils.ISEQUAL(this.data[row][i], value)) {
                 idx = i;
                 break;
             }
@@ -350,9 +350,9 @@ public class Matrix implements IMatrix {
         while (size > 0){
             boolean swap = false;
             i = 0;
-            if (temp.getElement(size-1, size-1) == 0){
+            if (NUtils.ISEQUAL(temp.getElement(size-1, size-1), 0.0D)){
                 while (i < (size-1) && (!swap)){
-                    if (temp.getElement(i, size-1) == 0){
+                    if (NUtils.ISEQUAL(temp.getElement(i, size-1), 0.0D)){
                         i++;
                     } else {
                         swap = true;
@@ -379,7 +379,7 @@ public class Matrix implements IMatrix {
             size--;
         }
 
-        float finalresult = (result*(swapped==0 ? 1.0f : -1.0f));
+        double finalresult = (result*(swapped==0 ? 1.0d : -1.0d));
         return NUtils.PRECISE(finalresult);
     }
 
