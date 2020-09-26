@@ -58,7 +58,6 @@ public class Gauss implements MatrixMethod{
                 j++;
             }
         }
-        this.result.show(false);
 
         for (i = 0; i < this.result.getRowCount(); i++) {
             found = false;
@@ -66,32 +65,22 @@ public class Gauss implements MatrixMethod{
             while (j < this.result.getRowCount() && !found) {
                 if (!NUtils.ISEQUAL(this.result.getElement(i, j), 0)) {
                     found = true;
-                    System.out.println("Tes");
                 }
                 else {
                     j++;
-                    System.out.printf("halo %d\n", j);
                 }
             }
 
             if (i == 0) this.result.rowOperation(0, (x, y) -> x/(this.result.getElement(0, 0)));
             else {
-                System.out.println("iya ini");
                 if (NUtils.ISEQUAL(this.result.getElement(i-1, j), 0)) {
-                    System.out.println("ini kalo atasnya 0 loh");
                     final double val = this.result.getElement(i, j);
                     this.result.rowOperation(i, (x, y) -> x / val);
                 }
                 else {
-                    System.out.println("ini kalo kagak hehe");
                     final double val = this.result.getElement(i, j) / this.result.getElement(i-1, j);
-                    System.out.println(val);
                     final int temp_row = i-1;
-                    System.out.println(temp_row);
-                    for (int abc = 0; abc < this.result.getColCount(); abc++) {
-                        System.out.println(this.result.getElement(i, abc) - val * this.result.getElement(temp_row, abc));
-                    }
-                    this.result.rowOperation(i, i-1, (x, y) -> (x - val*(temp_row)));
+                    this.result.rowOperation(i, temp_row, (x, y) -> (x - val*(temp_row)));
                 }
             }
         }
