@@ -29,18 +29,18 @@ public class AugMatrix implements IAugMatrix {
         if (splFormat) {
             for (i = 0; i < this.left.getColCount(); i++) {
                 for (j = 0; j < this.left.getRowCount(); j++) {
-                    System.out.println(this.left.getElement(i, j) + "X" + (j+1) + " ");
-                    if (j < this.left.getRowCount()-1) System.out.println("+");
+                    System.out.printf("%.3fX%d ", this.left.getElement(i, j), j+1);
+                    if (j < this.left.getRowCount()-1) System.out.printf("+ ");
                 }
-                System.out.printf("= %lf\n", this.right.getElement(i, 0));
+                System.out.printf("= %.3f\n", this.right.getElement(i, 0));
             }
         }
         else {
             for (i = 0; i < this.left.getColCount(); i++) {
                 for (j = 0; j < this.left.getRowCount(); j++) {
-                    System.out.printf("%.4lf ", this.left.getElement(i, j));
+                    System.out.printf("%.3f ", this.left.getElement(i, j));
                 }
-                System.out.printf("%.4lf\n", this.right.getElement(i, 0));
+                System.out.printf("%.3f\n", this.right.getElement(i, 0));
             }
         }
     }
