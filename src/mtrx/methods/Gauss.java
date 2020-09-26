@@ -22,7 +22,7 @@ public class Gauss implements MatrixMethod{
         this.operate();
     }
 
-	private void operate() {
+	public void operate() {
         int i, l, row, j, kValid, bValid = 0;
         boolean found, valid, need;
 
@@ -32,20 +32,10 @@ public class Gauss implements MatrixMethod{
             }
         }
 
-        // buat nuker2
         for (i = 0; i < this.result.getRowCount(); i++) {
             found = false;
             j = 0;
-            //ini jaga-jaga aja punten
-        // while (i < this.matrix.getRowCount() && swapped != 2) {
-            // if (this.matrix.getElement(0, 0) == 0 && this.matrix.getElement(i, 0) != 0) {
-            //     this.swapTimes++;
-            //     swapped++;
-            //     if (this.matrix.findCol(0, 1)) row = this.matrix.findFirstXinCol(0, 1);
-            //     else row = i;
-            //     this.matrix.swapRow(0, row);
                 while (j < this.result.getRowCount() && !found) {
-            // for (j = 0; j < this.matrix.getRowCount(); j++) {
                     if (this.result.findFirstXinCol(j, 1) > i) {
                         found = true;
                         row = this.result.findFirstXinCol(j, 1);
@@ -56,16 +46,11 @@ public class Gauss implements MatrixMethod{
                         l = i+1;
                         need = false;
                         while (l < this.result.getRowCount() && !need) {
-                        // for (l = i+1; l < this.matrix.getRowCount(); l++) {
                             if (!NUtils.ISEQUAL(this.result.getElement(l, j), 0)) {
                                 need = true;
                                 found = true;
                                 this.swapTimes++;
                                 this.result.swapRow(i, l);
-                                    // if (i == 0 && j == 0) {
-                                    //     if (this.matrix.findCol(1, 1)) row = this.matrix.findFirstXinCol(1, 1);
-                                    //     else row = l;
-                                    // }
                             }
                             else l++;
                         }
@@ -73,26 +58,40 @@ public class Gauss implements MatrixMethod{
                 j++;
             }
         }
+        this.result.show(false);
 
         for (i = 0; i < this.result.getRowCount(); i++) {
             found = false;
             j = 0;
-
             while (j < this.result.getRowCount() && !found) {
-                if (!NUtils.ISEQUAL(this.result.getElement(i, j), 0)) found = true;
-                else j++;
+                if (!NUtils.ISEQUAL(this.result.getElement(i, j), 0)) {
+                    found = true;
+                    System.out.println("Tes");
+                }
+                else {
+                    j++;
+                    System.out.printf("halo %d\n", j);
+                }
             }
 
             if (i == 0) this.result.rowOperation(0, (x, y) -> x/(this.result.getElement(0, 0)));
             else {
+                System.out.println("iya ini");
                 if (NUtils.ISEQUAL(this.result.getElement(i-1, j), 0)) {
+                    System.out.println("ini kalo atasnya 0 loh");
                     final double val = this.result.getElement(i, j);
-                    this.result.rowOperation(i, j, (x, y) -> x / val);
+                    this.result.rowOperation(i, (x, y) -> x / val);
                 }
                 else {
+                    System.out.println("ini kalo kagak hehe");
                     final double val = this.result.getElement(i, j) / this.result.getElement(i-1, j);
-                    final int temp_row = i;
-                    this.result.rowOperation(i, i-1, (x, y) -> x - val*(temp_row-1));
+                    System.out.println(val);
+                    final int temp_row = i-1;
+                    System.out.println(temp_row);
+                    for (int abc = 0; abc < this.result.getColCount(); abc++) {
+                        System.out.println(this.result.getElement(i, abc) - val * this.result.getElement(temp_row, abc));
+                    }
+                    this.result.rowOperation(i, i-1, (x, y) -> (x - val*(temp_row)));
                 }
             }
         }
