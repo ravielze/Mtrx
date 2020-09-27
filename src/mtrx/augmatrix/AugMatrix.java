@@ -8,9 +8,25 @@ public class AugMatrix implements IAugMatrix {
 
     private Matrix left, right;
 
+    /**
+     * Constructor dengan dua matrix.
+     * Bisa dipakai untuk inverse atau SPL.
+     * Kalau SPL matrix kanan harus 1 kolom saja.
+     * @param left matrix kanan
+     * @param right matrix kiri
+     */
     public AugMatrix(Matrix left, Matrix right) {
         this.left = left;
         this.right = right;
+    }
+
+    /**
+     * Constructor dengan matrix biasa.
+     * Digunakan untuk SPL dan semacamnya.
+     * @param matrix
+     */
+    public AugMatrix(Matrix matrix){
+
     }
 
     @Override
