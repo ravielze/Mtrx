@@ -8,9 +8,25 @@ public class AugMatrix implements IAugMatrix {
 
     private Matrix left, right;
 
+    /**
+     * Constructor dengan dua matrix.
+     * Bisa dipakai untuk inverse atau SPL.
+     * Kalau SPL matrix kanan harus 1 kolom saja.
+     * @param left matrix kanan
+     * @param right matrix kiri
+     */
     public AugMatrix(Matrix left, Matrix right) {
         this.left = left;
         this.right = right;
+    }
+
+    /**
+     * Constructor dengan matrix biasa.
+     * Digunakan untuk SPL dan semacamnya.
+     * @param matrix
+     */
+    public AugMatrix(Matrix matrix){
+
     }
 
     @Override
@@ -29,8 +45,8 @@ public class AugMatrix implements IAugMatrix {
         if (splFormat) {
             for (i = 0; i < this.left.getColCount(); i++) {
                 for (j = 0; j < this.left.getRowCount(); j++) {
-                    System.out.println(this.left.getElement(i, j) + "X" + (j+1) + " ");
-                    if (j < this.left.getRowCount()-1) System.out.println("+");
+                    System.out.print(this.left.getElement(i, j) + "X" + (j+1) + " ");
+                    if (j < this.left.getRowCount()-1) System.out.print("+");
                 }
                 System.out.printf("= %lf\n", this.right.getElement(i, 0));
             }
@@ -39,8 +55,8 @@ public class AugMatrix implements IAugMatrix {
             for (i = 0; i < this.left.getColCount(); i++) {
                 for (j = 0; j < this.left.getRowCount(); j++) {
                     System.out.printf("%.4lf ", this.left.getElement(i, j));
+                    System.out.printf("%.4lf\n", this.right.getElement(i, j));
                 }
-                System.out.printf("%.4lf\n", this.right.getElement(i, 0));
             }
         }
     }

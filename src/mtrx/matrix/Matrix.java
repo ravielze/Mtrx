@@ -118,7 +118,7 @@ public class Matrix implements IMatrix {
         for (int i = 0; i < this.row; i++){
             for (int j = 0; j < this.col; j++){
                 allZero = allZero && (NUtils.ISEQUAL(this.data[i][j], 0.0D));
-                identity = identity && (NUtils.ISEQUAL(this.data[i][j], (((i == j) ? 1 : 0)));
+                identity = identity && (NUtils.ISEQUAL(this.data[i][j], ((i == j) ? 1 : 0)));
             }
         }
 
