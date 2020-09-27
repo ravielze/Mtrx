@@ -1,6 +1,7 @@
 package mtrx.methods;
 
 import mtrx.matrix.Matrix;
+import mtrx.augmatrix.AugMatrix;
 
 public interface MatrixMethod {
 
@@ -15,7 +16,7 @@ public interface MatrixMethod {
      * @return Matriks Akhir setelah dioperasikan.
      * Bernilai null apabila tidak punya solusi.
      */
-    public Matrix getResult();
+    public AugMatrix getResult();
 
     /**
      * Mengembalikan apakah punya solusi atau tidak.

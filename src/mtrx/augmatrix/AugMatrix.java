@@ -43,17 +43,17 @@ public class AugMatrix implements IAugMatrix {
     public void show(boolean splFormat) {
         int i, j;
         if (splFormat) {
-            for (i = 0; i < this.left.getColCount(); i++) {
-                for (j = 0; j < this.left.getRowCount(); j++) {
+            for (i = 0; i < this.left.getRowCount(); i++) {
+                for (j = 0; j < this.left.getColCount(); j++) {
                     System.out.printf("%.3fX%d ", this.left.getElement(i, j), j+1);
-                    if (j < this.left.getRowCount()-1) System.out.printf("+ ");
+                    if (j < this.left.getColCount()-1) System.out.printf("+ ");
                 }
                 System.out.printf("= %.3f\n", this.right.getElement(i, 0));
             }
         }
         else {
-            for (i = 0; i < this.left.getColCount(); i++) {
-                for (j = 0; j < this.left.getRowCount(); j++) {
+            for (i = 0; i < this.left.getRowCount(); i++) {
+                for (j = 0; j < this.left.getColCount(); j++) {
                     System.out.printf("%.3f ", this.left.getElement(i, j));
                 }
                 System.out.printf("%.3f\n", this.right.getElement(i, 0));
@@ -96,5 +96,11 @@ public class AugMatrix implements IAugMatrix {
         this.left.fixPrecision();
         this.right.fixPrecision();
     }
-    
+
+    @Override
+    public void isAllXinRow(int row, double value) {
+        this.left.isAllXinRow(row, value);
+        this.right.isAllXinRow(row, value);
+    }
+
 }

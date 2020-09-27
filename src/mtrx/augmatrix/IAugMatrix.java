@@ -72,4 +72,12 @@ public interface IAugMatrix {
      * setiap elemen pada matriks.
      */
     public void fixPrecision();
+
+
+    /**
+     * Mengecek apakah suatu baris semuanya bernilai X
+     * @param row
+     * @param value
+     */
+    public void isAllXinRow(int row, double value);
 }
