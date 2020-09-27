@@ -79,6 +79,15 @@ public class Gauss implements MatrixMethod {
         else return false;
     }
 
+    private boolean b4_self(Matrix m, int row) {
+        int count = 0;
+        for (int j = 0; j < m.getColCount(); j++) {
+            if (NUtils.ISEQUAL(m.getElement(row, j), 0)) count++;
+        }
+        if (count == m.getColCount()) return true;
+        else return false;
+    }
+
     private void subTop(AugMatrix aug, int row, int col) {
         double val = aug.getLeft().getElement(row, col);
         aug.rowOperation(row, (x, y) -> x/val);
@@ -196,6 +205,21 @@ public class Gauss implements MatrixMethod {
         }
     
         bResult(a);
+        swapped = -1;
+        for (i = 0; i < this.result.getRowCount(); i++) {
+            if (i != this.result.getRowCount()-1) {
+                for (l = i+1; l < this.result.getRowCount(); l++) {
+                    if (b4_self(this.result, i) && !b4_self(this.result, l)) {
+                        this.result.swapRow(i, l);
+                        swapped = l;
+                        this.swapTimes++;
+                    }
+                }
+            }
+            for (j = 0; j < this.result.getColCount(); j++) {
+                this.result.setElement(i, j, NUtils.PRECISE(this.result.getElement(i, j)));
+            }
+        }
 
         i = this.result.getRowCount()-1;
         found = false;
