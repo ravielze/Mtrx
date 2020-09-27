@@ -36,6 +36,11 @@ public class Gauss implements MatrixMethod {
     private boolean b4_sndiri(AugMatrix aug, int row, int col) {
         int count = 0;
         boolean found = false;
+        if (col == 0 && row == 0) {
+            if (aug.getLeft().findFirstXinCol(col, 1) > row || aug.getLeft().findFirstXinCol(col, -11) > row)
+                return true;
+            else return false;
+        }
         if (row == 0) return false;
         if (row != aug.getLeft().getRowCount()-1) {
             for (int j = 0; j <= col; j++) {
@@ -45,7 +50,6 @@ public class Gauss implements MatrixMethod {
                         count++;
                     }
                 }
-
                 else {
                     if (NUtils.ISEQUAL(aug.getLeft().getElement(row, j), 0)) {
                         found = true;
@@ -54,37 +58,6 @@ public class Gauss implements MatrixMethod {
                 }
             }
             if (count == col && found) return true;
-            else return false;
-        }
-        else return true;
-    }
-
-    private boolean b4_bawah(AugMatrix aug, int row, int col) {
-        int count = 0;
-        if (row == 0) return false;
-        if (row != aug.getLeft().getRowCount()-1) {
-            for (int j = 0; j <= col; j++) {
-                if (j != aug.getLeft().getColCount())
-                if (NUtils.ISEQUAL(aug.getLeft().getElement(row+1, j), 0)) count++;
-
-                else
-                if (NUtils.ISEQUAL(aug.getLeft().getElement(row+1, j), 0)) count++;
-            }
-            if (count == col) {
-                if (aug.getLeft().getColCount() == col)
-                    if (aug.getRight().getElement(row+1, 0) == 1) {
-                        if (b4_sndiri(aug, row, col)) return false;
-                        else return true;
-                    }
-                    else return false;
-                else {
-                    if (aug.getLeft().getElement(row+1, col) == 1) {
-                        if (b4_sndiri(aug, row, col)) return false;
-                        else return true;
-                    }
-                    else return false;
-                }
-            }
             else return false;
         }
         else return true;
@@ -148,20 +121,23 @@ public class Gauss implements MatrixMethod {
         for (i = 0; i < a.getLeft().getRowCount(); i++) {
             found = false;
             j = 0;
-            // ga tau kenapa parameternya row malah lancar
-            while (j < a.getLeft().getRowCount() && !found && this.swapped != i && !b4_sndiri(a, i, j)) {
-                System.out.println("tes");
-                System.out.println("<3 " + i + " " + j + " <3");
+            while (j < a.getLeft().getColCount() && !found && this.swapped != i && !b4_sndiri(a, i, j)) {
                 if (this.result.findFirstXinCol(j, 1) > i && a.getLeft().getElement(i, j) != 1 &&
-                i == 0) {
-                    System.out.println("hiiii");
-                        found = true;
-                        row = a.getLeft().findFirstXinCol(j, 1);
-                        a.swapRow(i, row);
-                        this.swapTimes++;
+                j == 0) {
+                    found = true;
+                    row = a.getLeft().findFirstXinCol(j, 1);
+                    a.swapRow(i, row);
+                    this.swapTimes++;
+                }
+                if (this.result.findFirstXinCol(j, -1) > i && a.getLeft().getElement(i, j) != -1 &&
+                j == 0) {
+                    found = true;
+                    row = a.getLeft().findFirstXinCol(j, -1);
+                    a.swapRow(i, row);
+                    a.rowOperation(i, (x, y) -> x*(-1));
+                    this.swapTimes++;
                 }
                 if (NUtils.ISEQUAL(a.getLeft().getElement(i, j), 0)) {
-                    System.out.println("hmmmmmm");
                     l = a.getLeft().getRowCount()-1;
                     need = false;
                     while (l >= i+1 && !need) {
@@ -178,10 +154,6 @@ public class Gauss implements MatrixMethod {
             j++;
             }
         }
-        
-        System.out.println(this.swapTimes);
-        a.show(false);
-        System.out.printf("\n");
 
         for (i = 0; i < a.getLeft().getRowCount(); i++) {
             go = true;
@@ -194,7 +166,6 @@ public class Gauss implements MatrixMethod {
             while (go && j <= a.getLeft().getColCount()) {
                 need = false;
                 if (j < a.getLeft().getColCount()) {
-                    System.out.println("<3 " + i + " " + j + " <3");
                     if (!NUtils.ISEQUAL(a.getLeft().getElement(i, j), 0)) {
                         need = true;
                     }
@@ -221,13 +192,10 @@ public class Gauss implements MatrixMethod {
                     }
                 }
                 j++;
-                a.show(false);
             }
         }
     
         bResult(a);
-        System.out.println("here he comes");
-        this.result.show(false);
 
         i = this.result.getRowCount()-1;
         found = false;
@@ -236,32 +204,26 @@ public class Gauss implements MatrixMethod {
             j = 0;
             valid = false;
             while (j < this.result.getColCount() && !valid && !found) {
-                System.out.println("<3 " + i + " " + j + " <3");
                 if (NUtils.ISEQUAL(this.result.getElement(i, j), 0)) {
                     kValid++;
-                    System.out.println(kValid);
                     if (kValid == this.result.getColCount()) {
                         bValid++;
                     }
                 }
                 else {
                     if (j == this.result.getColCount()-1 && kValid == this.result.getColCount()-1) {
-                        System.out.println("ini ini");
                         found = true;
                         this.hasSolution = false;
                     }
                     if (j != this.result.getColCount()-1) {
-                        System.out.println("bukan, yg ini");
                         valid = true;
                         found = true;
                         this.hasSolution = true;
                     }
                 }
                 j++;
-                System.out.println("hem");
             }
             if (kValid == this.result.getColCount()-1) {
-                System.out.println("wahw");
                 found = true;
                 this.hasSolution = false;
             }
@@ -270,10 +232,7 @@ public class Gauss implements MatrixMethod {
                 this.hasSolution = false;
             }
             i--;
-            System.out.println("iya hooh");
         }
-
-        System.out.println(this.hasSolution);
     }
 
     @Override
