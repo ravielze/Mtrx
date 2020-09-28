@@ -40,16 +40,22 @@ public class Gauss implements MatrixMethod {
             this.swapTimes += (this.result.fixZeroRow(i) ? 1 : 0);
         }
 
-        while (NUtils.ISNOTEQUAL(this.result.getLeft().getElement(row, col), 1.0D)){
-            if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D) 
-                && col+1 < this.result.getLeft().getColCount()){
+        while (true){
+            if (NUtils.ISNOTEQUAL(this.result.getLeft().getElement(row, col), 1.0D)){
+                if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D) 
+                    && col+1 < this.result.getLeft().getColCount()){
+                        col++;
+                        continue;
+                }
+                this.result.divideBySingleElement(row, col);
+                this.result.eliminateFromTop(row, col);
                 col++;
-                continue;
+                row++;
+            } else {
+                this.result.eliminateFromTop(row, col);
+                col++;
+                row++;
             }
-            this.result.divideBySingleElement(row, col);
-            this.result.eliminateFromTop(row, col);
-            col++;
-            row++;
 
             if (col >= this.result.getLeft().getColCount()) break;
         }
