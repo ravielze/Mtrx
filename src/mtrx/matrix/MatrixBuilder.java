@@ -270,9 +270,21 @@ public class MatrixBuilder {
         int c1 = (col1 > this.data[0].length) ? this.data[0].length : col1;
         int c2 = (col2 > this.data[0].length) ? this.data[0].length : col2;
         if (c1 != c2){
-            for (int i = c1; i <= c2; i++){
-                this.cutColoumn(i);
+            double[][] newData = new double[this.row][this.col-(c2-c1)];
+        
+            for (int i = 0; i < this.row; i++){
+                int k = 0;
+                for (int j = 0; j < this.col; j++){
+                    if (!(col1 <= j && j <= col2)){
+                        newData[i][k] = this.data[i][j];
+                        k++;
+                    }
+                }
             }
+            
+            this.data = newData;
+            this.col -= (c2-c1);
+            return this;
         }
         return this;
     }

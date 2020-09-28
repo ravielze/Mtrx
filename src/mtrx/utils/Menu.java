@@ -19,12 +19,14 @@ public class Menu {
         System.out.println("[2] Metode eliminasi Gauss-Jordan");
         System.out.println("[3] Metode matriks balikan");
         System.out.println("[4] Kaidah Cramer");
+        System.out.println("[5] Kembali");
     }
 
     public static void menuDeterminan() {
         System.out.println("METODE");
         System.out.println("[1] Reduksi baris");
         System.out.println("[2] Ekspansi kofaktor");
+        System.out.println("[3] Kembali");
     }
 
     public static void runMenu() {
@@ -89,5 +91,6 @@ public class Menu {
                 System.out.println("Input invalid. Silakan masukkan range angka sesuai menu.");
             }
         }
+        keyboard.close();
     }
 }

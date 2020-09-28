@@ -2,6 +2,7 @@ package mtrx;
 
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
+import mtrx.methods.Gauss;
 
 public class Mtrx {
 
@@ -15,14 +16,14 @@ public class Mtrx {
         MatrixBuilder mb = new MatrixBuilder();
         Matrix m = mb.fileInput("test.txt").build();
         m.show(false);
-        m.rowOperation(1, (x,y) -> 2*x);
         System.out.println();
-        Matrix m2 = m.multiply(m);
         m.show(false);
         System.out.println();
         System.out.println(m.determinant());
         System.out.println(m.determinantWithCofactor());
-        System.out.println(m2.determinant());
+        System.out.println();
+        Gauss g = new Gauss(m);
+        g.getResult().show(true);
     }
 
 }

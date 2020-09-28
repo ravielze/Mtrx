@@ -9,98 +9,58 @@ import mtrx.augmatrix.AugMatrix;
 
 public class Gauss implements MatrixMethod {
 
-    private Matrix matrix;
     private AugMatrix result;
+    private Matrix originalMatrix;
     private int swapTimes;
     private boolean hasSolution;
-    private Matrix temp_left;
-    private Matrix temp_right;
 
     public Gauss(Matrix matrix){
-        this.matrix = (new MatrixBuilder(matrix)).build();
-        this.temp_left = (new MatrixBuilder(this.matrix.getRowCount(), this.matrix.getColCount()-1)).build();
-        this.temp_right = (new MatrixBuilder(this.matrix.getRowCount(), 1)).build();
-        this.result = new AugMatrix(this.temp_left, this.temp_right);
+        this.originalMatrix = MatrixBuilder.clone(matrix);
+        this.result = new AugMatrix(matrix);
         this.swapTimes = 0;
         this.hasSolution = false;
         this.operate();
     }
 
-    // fungsi agar nilai elemen baris row kolom col menjadi 1 (berlaku untuk bukan baris terakhis)
-    private void Top_divSelf(AugMatrix aug, int row, int col) {
-        double val = aug.getLeft().getElement(row, col);
-        aug.rowOperation(row, (x, y) -> x/val);
-    }
-
-    // fungsi untuk mengurangi dari row sampai finalRow-1 dengan row-1 (supaya bawahnya jadi 0 semua)
-    private void subFromTop (AugMatrix aug, int row, int col) {
-        double top = aug.getLeft().getElement(row-1, col);
-        int idx = row-1;
-        for (int i = row; i < aug.getLeft().getRowCount(); i++) {
-            double val = aug.getLeft().getElement(i, col) / top;
-            aug.rowOperation(i, idx, (x, y) -> x - val*y);
-        }
-    }
-
-    // fungsi agar nilai elemen baris row kolom col menjadi 1 (berlaku untuk baris terakhir doang)
-    private void Bottom_divSelf (AugMatrix aug, int row) {
-        double val = aug.getRight().getElement(row, 0);
-        aug.rowOperation(row, (x, y) -> x/val);
-    }
-
-    // fungsi untuk menghitung ada berapa 0 sebelum kolom j
-    private int ZeroBeforeJ (AugMatrix aug, int row) {
-        int count = 0;
-        boolean found = false;
-        int j = 0;
-        while (j <= aug.getLeft().getColCount() && !found) {
-            // conditional hanya untuk mencegah error out of index
-            if (j < aug.getLeft().getColCount()) {
-                if (NUtils.ISEQUAL(aug.getLeft().getElement(row, j), 0)) {
-                    count++;
-                }
-                else found = true;
-            }
-            else {
-                if (NUtils.ISEQUAL(aug.getRight().getElement(row, 0), 0)) count++;
-            }
-            j++;
-        }
-        return count;
-    }
-
-    // fungsi untuk mengecek apakah matriks akan membentuk eselon, jika tidak maka akan
-    // mengembalikan indeks yang seharusnya ditempati (dicek dari bawah)
-    private int check_eselon (AugMatrix aug, int row, int col) {
-        int zero = ZeroBeforeJ(this.result, row);
-        int idx = row;
-        for (int i = aug.getLeft().getRowCount()-1; i >= row+1; i--) {
-            if (ZeroBeforeJ(this.result, i) < zero) {
-                zero = ZeroBeforeJ(this.result, i);
-                idx = i;
+    private void operate(){
+        int col = 0, row = 0, colZero = 0;
+        for (int j = 0; j < this.result.getColCount()-1; j++){
+            colZero += (this.result.isAllXinCol(j, 0.0D) ? 1 : 0);
+            if (this.result.isAllXinCol(j, 0.0D) && (!this.result.isAllXinCol(j+1, 0.0D))){
+                col = j+1;
+                break;
             }
         }
-        return idx;
+        if (col > this.result.getLeft().getColCount() || colZero == this.result.getLeft().getColCount()){
+            this.hasSolution = false;
+            return;
+        }
+
+        for (int i = 0; i < this.result.getRowCount(); i++){
+            this.swapTimes += (this.result.fixZeroRow(i) ? 1 : 0);
+        }
+
+        while (NUtils.ISNOTEQUAL(this.result.getLeft().getElement(row, col), 1.0D)){
+            if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D) 
+                && col+1 < this.result.getLeft().getColCount()){
+                col++;
+                continue;
+            }
+            this.result.divideBySingleElement(row, col);
+            this.result.eliminateFromTop(row, col);
+            col++;
+            row++;
+
+            if (col >= this.result.getLeft().getColCount()) break;
+        }
+        this.hasSolution = true;
     }
-
-
+/*
 	private void operate() {
         int i, l, row, j, ColNotValid, RowNotValid = 0, swapped = -1;
-        int finalRow = this.matrix.getRowCount();
-        int finalCol = this.matrix.getColCount();
         boolean found, need, go;
-
-        // untuk alokasi Matrix this.matrix ke AugMatrix this.result
-        for (i = 0; i < finalRow; i++) {
-            for (j = 0; j < finalCol; j++) {
-                if (j <= finalCol-2) {
-                    this.temp_left.setElement(i, j, this.matrix.getElement(i, j));
-                }
-                else this.temp_right.setElement(i, 0, this.matrix.getElement(i, j));
-            }
-        }
-
-        this.result = new AugMatrix(temp_left, temp_right);
+        int finalRow = this.result.getLeft().getRowCount();
+        int finalCol = this.result.getLeft().getColCount() + 1;
 
         // swap awal-awal
         for (i = 0; i < finalRow; i++) {
@@ -118,7 +78,7 @@ public class Gauss implements MatrixMethod {
                     }
                 }
                 // jika di baris di bawahnya ada angka 0 && kolom 1 baris 1 bukan 1
-                if (this.matrix.findFirstXinCol(j, 1) > i && !isOne) {
+                if (this.result.findFirstXinCol(j, 1) > i && !isOne) {
                     found = true;
                     row = this.result.getLeft().findFirstXinCol(j, 1);
                     this.result.swapRow(i, row);
@@ -127,7 +87,7 @@ public class Gauss implements MatrixMethod {
                 // menggunakan else karena prioritas 1 > -1 dan tidak bertabrakan
                 else {
                     // jika di baris di bawahnya ada angka -1 && kolom 0 baris 0 bukan 1 atau -1
-                    if (this.matrix.findFirstXinCol(j, -1) > i && !isOneAndMinOne) {
+                    if (this.result.findFirstXinCol(j, -1) > i && !isOneAndMinOne) {
                         found = true;
                         row = this.result.getLeft().findFirstXinCol(j, -1);
                         this.result.swapRow(i, row);
@@ -163,7 +123,7 @@ public class Gauss implements MatrixMethod {
             j = 0;
             // jika elemen baris 0 kolom 0 bukan 1
             if (this.result.getLeft().getElement(0, 0) != 1) {
-                Top_divSelf(this.result, 0, 0);
+                this.result.divideBySingleElement(0, 0);
                 go = false;
             }
             if (i == 0) go = false;
@@ -215,18 +175,7 @@ public class Gauss implements MatrixMethod {
                 if (index == i) j++;
             }
         }
-
-        // untuk precise
-        for (i = 0; i < finalRow; i++) {
-            for (j = 0; j < finalCol; j++) {
-                if (j < finalCol-1) {
-                    this.result.getLeft().setElement(i, j, NUtils.PRECISE(this.result.getLeft().getElement(i, j)));
-                }
-                else {
-                    this.result.getLeft().setElement(i, 0, NUtils.PRECISE(this.result.getRight().getElement(i, 0)));
-                }
-            }
-        }
+        this.result.fixPrecision();
 
         // untuk mengecek apakah memiliki solusi atau tidak (dicek dari bawah)
         this.hasSolution = true;
@@ -267,11 +216,11 @@ public class Gauss implements MatrixMethod {
             }
             i--;
         }
-    }
+    }*/
 
     @Override
     public Matrix getInitialMatrix() {
-        return this.matrix;
+        return this.originalMatrix;
     }
 
     @Override

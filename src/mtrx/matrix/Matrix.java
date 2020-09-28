@@ -132,7 +132,7 @@ public class Matrix implements IMatrix {
         this.hasChanged = true;
         
         for (int j=0; j < this.col; j++){
-            this.data[row][j] = operation.operate(this.data[row][j], this.data[otherRow][j]);
+            this.data[row][j] = NUtils.PRECISE(operation.operate(this.data[row][j], this.data[otherRow][j]));
         }
     }
 
@@ -192,7 +192,7 @@ public class Matrix implements IMatrix {
         boolean allVal = true;
         int i = 0;
         while (allVal) {
-            if (this.data[row][i] != value) allVal = false;
+            if (NUtils.ISNOTEQUAL(this.data[row][i], value)) allVal = false;
             i++;
         }
         return allVal;
@@ -292,7 +292,7 @@ public class Matrix implements IMatrix {
         boolean isAllX = true;
 
         for (int i = 0; i < this.row; i++) {
-            if (this.data[i][col] != value) {
+            if (NUtils.ISNOTEQUAL(this.data[i][col], value)) {
                 isAllX = false;
                 break;
             }
@@ -305,7 +305,7 @@ public class Matrix implements IMatrix {
         boolean isAllX = true;
 
         for (int i = 0; i < this.col; i++) {
-            if (this.data[row][i] != value) {
+            if (NUtils.ISNOTEQUAL(this.data[row][i], value)) {
                 isAllX = false;
                 break;
             }
