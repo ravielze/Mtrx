@@ -14,7 +14,7 @@ public class Mtrx {
 
     public static void main(String args[]){
         MatrixBuilder mb = new MatrixBuilder();
-        Matrix m = mb.fileInput("test.txt").build();
+        Matrix m = mb.fileInput("terkutuk.txt").build();
         m.show(false);
         System.out.println();
         m.show(false);
