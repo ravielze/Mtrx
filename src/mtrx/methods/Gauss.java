@@ -53,7 +53,7 @@ public class Gauss implements MatrixMethod {
                 col++;
                 row++;
             }
-            if (col >= this.result.getLeft().getColCount()) break;
+            if (col >= this.result.getLeft().getColCount() || row >= this.result.getLeft().getRowCount()) break;
         }
         this.hasSolution = true;
     }
