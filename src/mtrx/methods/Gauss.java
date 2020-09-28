@@ -46,10 +46,8 @@ public class Gauss implements MatrixMethod {
                 this.result.eliminateFromTop(row, col);
                 col++;
                 row++;
-            } else if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D) 
-                        && col+1 < this.result.getLeft().getColCount()){
+            } else if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D)){
                 col++;
-                continue;
             } else {
                 this.result.eliminateFromTop(row, col);
                 col++;
