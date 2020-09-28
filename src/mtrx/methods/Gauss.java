@@ -41,13 +41,13 @@ public class Gauss implements MatrixMethod {
         }
 
         while (true){
-            if (NUtils.ISNOTEQUAL(this.result.getLeft().getElement(row, col), 1.0D)){
+            if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D)){
+                col++;
+            } else if (NUtils.ISNOTEQUAL(this.result.getLeft().getElement(row, col), 1.0D)){
                 this.result.divideBySingleElement(row, col);
                 this.result.eliminateFromTop(row, col);
                 col++;
                 row++;
-            } else if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D)){
-                col++;
             } else {
                 this.result.eliminateFromTop(row, col);
                 col++;
