@@ -42,21 +42,19 @@ public class Gauss implements MatrixMethod {
 
         while (true){
             if (NUtils.ISNOTEQUAL(this.result.getLeft().getElement(row, col), 1.0D)){
-                if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D) 
-                    && col+1 < this.result.getLeft().getColCount()){
-                        col++;
-                        continue;
-                }
                 this.result.divideBySingleElement(row, col);
                 this.result.eliminateFromTop(row, col);
                 col++;
                 row++;
+            } else if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D) 
+                        && col+1 < this.result.getLeft().getColCount()){
+                col++;
+                continue;
             } else {
                 this.result.eliminateFromTop(row, col);
                 col++;
                 row++;
             }
-
             if (col >= this.result.getLeft().getColCount()) break;
         }
         this.hasSolution = true;
