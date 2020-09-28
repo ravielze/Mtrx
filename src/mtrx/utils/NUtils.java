@@ -12,7 +12,9 @@ public class NUtils {
     }
 
     public static final double PRECISE(double val){
-        return BigDecimal.valueOf(val).setScale(Mtrx.PRECISION, RoundingMode.HALF_UP).doubleValue();
+        if (Double.isNaN(val) || Double.isInfinite(val)) return val;
+        if (Math.abs(val) < Math.pow(10, -1*Mtrx.PRECISION)) return 0.0D;
+        return val;
     }
 
     public static final boolean ISEQUAL(double val, double val2){

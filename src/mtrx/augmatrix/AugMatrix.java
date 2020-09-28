@@ -151,8 +151,10 @@ public class AugMatrix implements IAugMatrix {
         int idx = row;
         for (int i = this.left.getRowCount()-1; i >= row+1; i--) {
             int now = countZeroinRowUntilX(i);
-            zero = ((now < zero) ? now : zero);
-            idx  = ((now < zero) ? i : idx);
+            if (now < zero) {
+                zero = now;
+                idx = i;
+            }
         }
         if (idx != row){
             this.left.swapRow(idx, row);

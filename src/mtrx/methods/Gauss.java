@@ -35,10 +35,11 @@ public class Gauss implements MatrixMethod {
             this.hasSolution = false;
             return;
         }
-
         for (int i = 0; i < this.result.getRowCount(); i++){
             this.swapTimes += (this.result.fixZeroRow(i) ? 1 : 0);
         }
+
+        int number = 0;
 
         while (true){
             if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D)){
@@ -53,7 +54,12 @@ public class Gauss implements MatrixMethod {
                 col++;
                 row++;
             }
+            for (int i = 0; i < this.result.getRowCount(); i++){
+                this.swapTimes += (this.result.fixZeroRow(i) ? 1 : 0);
+            }
             if (col >= this.result.getLeft().getColCount() || row >= this.result.getLeft().getRowCount()) break;
+
+            number++;
         }
         this.hasSolution = true;
     }
