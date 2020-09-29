@@ -1,6 +1,8 @@
 package mtrx.matrix;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MatrixBuilder {
@@ -179,21 +181,26 @@ public class MatrixBuilder {
         try {
             File file = new File(new File("../test/"+fileName).getCanonicalPath());
             Scanner scanner = new Scanner(file);
-            this.row = scanner.nextInt();
-            this.col = scanner.nextInt();
 
-            if (scanner.hasNextLine())
-                scanner.nextLine();
-
-            this.data = new double[row][col];
-            for (int i = 0; i < this.row; i++){
-                for (int j = 0; j < this.col; j++){
-                    this.data[i][j] = (scanner.hasNext() ? scanner.nextDouble() : 0.0D);
+            this.col = 0;
+            this.row = 0;
+            while(scanner.hasNextLine()){
+                if(this.row == 0){
+                    this.col = (scanner.nextLine().trim().split(" ")).length;
                 }
-                if (scanner.hasNextLine())
-                scanner.nextLine();
+                else scanner.nextLine();
+                this.row++;
             }
             scanner.close();
+            
+            Scanner scanner2 = new Scanner(file);
+            this.data = new double[this.row][this.col];
+            for (int i = 0; i < this.row; i++){
+                for (int j = 0; j <this.col; j++){
+                    this.data[i][j] = scanner2.nextDouble();
+                }
+            }
+            scanner2.close();
         } catch (Exception ex){
             ex.printStackTrace();
         }
