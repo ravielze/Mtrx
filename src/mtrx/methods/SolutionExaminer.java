@@ -4,6 +4,7 @@ import mtrx.augmatrix.AugMatrix;
 import mtrx.matrix.Matrix;
 import mtrx.trait.MatrixTrait;
 import mtrx.utils.Base26;
+import mtrx.utils.NUtils;
 
 public class SolutionExaminer {
 
@@ -82,10 +83,66 @@ public class SolutionExaminer {
                 if (this.notGaussJordan){
                     this.aug = new GaussJordan(this.originalMatrix).getResult();
                 }
-                for (int i = 0; i < this.aug.getRowCount(); i++){
-                    for (int j = 0; j < this.aug.getLeft().getColCount(); j++){
-                        
+                int[] fill = new int[this.aug.getColCount()-1];
+                int idx = 0;
+                for (int j = 0; j < this.aug.getLeft().getColCount(); j++) {
+                // for (int i = 0; i < this.aug.getRowCount(); i++){
+                    boolean found = false;
+                    int i = 0;
+                    // for (int j = 0; j < this.aug.getLeft().getColCount()-1; j++){
+                    while (i < this.aug.getRowCount() && !found) {
+                        if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 1)) found = true;
+                        else if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 0)) i++;
+                        else {
+                            idx++;
+                            fill[j] = idx;
+                            found = true;
+                        }
                     }
+                    System.out.println(fill[j]);
+                }
+                
+                int j = 0;
+                for (int i = 0; i < this.aug.getRowCount(); i++) {
+                    // for (int j = 0; j < this.aug.getColCount()-1; j++) {
+                    System.out.printf("X%d = ", j+1);
+                    if (NUtils.ISEQUAL(fill[j], 0)) {
+                        for (int k = j+1; k < this.aug.getColCount()-1; k++) {
+                            if (k != this.aug.getColCount()-2) {
+                                System.out.printf("%.3f", this.aug.getLeft().getElement(i, k));
+                            }
+                            else {
+                                System.out.printf("%.3f", this.aug.getRight().getElement(i, 0));
+                            }
+                            if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k]);
+                            System.out.printf(" + ");
+                        }
+                    }
+                    else System.out.printf("a" + fill[j]);
+                    System.out.printf("\n");
+                    j++;
+
+                        // if (NUtils.ISEQUAL(fill[j], 0)) {
+                        //     if (j != this.aug.getColCount()-1) {
+                        //         System.out.printf("%.3f + ", this.aug.getLeft().getElement(i, j));
+                        //     }
+                        //     else {
+                        //         System.out.printf("%.3f\n", this.aug.getRight().getElement(i, 0));
+                        //     }
+                        // }
+                        //     for (int k = 0; k < this.aug.getColCount()-1; k++) {
+                        //         if (j != this.aug.getColCount()-1){
+                        //             System.out.printf(" + %.3f", this.aug.getLeft().getElement(i, k));
+                        //             if (NUtils.ISNOTEQUAL(fill[k], 0)) {
+                        //                 System.out.printf("a" + fill[k]);
+                        //             }
+                        //         }
+                        //         else {
+                        //             System.out.printf(" +%.3f", this.aug.getRight().getElement(i, 0));
+                        //         }
+                        //     }
+                        //     System.out.printf("\n");
+                        // }
                 }
                 break;
             default:
@@ -95,10 +152,10 @@ public class SolutionExaminer {
     }
 }
 /**
- * x1 = –3r – 2s – 2t 
-x2 = r
-x3 = –s
-x4 = s
-x5 = t
-x6 = 1/3 
+ * x1 = –3r – 4s – 2t
+ * x2 = r
+ * x3 = –2s
+ * x4 = s
+ * x5 = t
+ * x6 = 1/3 
  */

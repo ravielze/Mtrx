@@ -19,7 +19,7 @@ public class Mtrx {
 
     public static void main(String args[]){
         MatrixBuilder mb = new MatrixBuilder();
-        Matrix m = mb.fileInput("test2.txt").build();
+        Matrix m = mb.fileInput("terkutuk.txt").build();
         m.show(false);
         enter();
         GaussJordan g = new GaussJordan(m);
