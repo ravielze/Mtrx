@@ -2,6 +2,7 @@ package mtrx.methods;
 
 import mtrx.augmatrix.AugMatrix;
 import mtrx.trait.MatrixTrait;
+import mtrx.utils.Base26;
 import mtrx.utils.NUtils;
 
 public class SolutionExaminer {
@@ -105,11 +106,21 @@ public class SolutionExaminer {
                     }
                 }
 
-                for (int i = 0; i < values.length; i++){
-                    if (colHasPivot[i]){
-                        //for (int j = i+1;)
+                row = this.aug.getRowCount();
+                while (true){
+                    row--;
+                    if (row < 0) break;
+                    col = this.aug.getLeft().findFirstXinRow(row, 1.0D);
+                    if (col == -1) continue;
+
+                    System.out.printf("X%d = %.3f", col, values[col]);
+                    for (int i = col; i < this.aug.getLeft().getColCount(); i++){
+                        double nowSubElement = this.aug.getLeft().getElement(row, i)*-1.0D;
+                        if (!colHasPivot[i]){
+                            System.out.printf(" %s%.3f%s", nowSubElement > 0.0D ? "+" : "", nowSubElement, Base26.toBase26(i));
+                        }
                     }
-                    System.out.printf("X%d = %.3f\n", i, values[i]);
+                    System.out.printf("\n");
                 }
                 break;
             default:
@@ -118,3 +129,11 @@ public class SolutionExaminer {
         }
     }
 }
+/**
+ * x1 = –3r – 2s – 2t 
+x2 = r
+x3 = –s
+x4 = s
+x5 = t
+x6 = 1/3 
+ */

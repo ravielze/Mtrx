@@ -3,6 +3,8 @@ package mtrx;
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
 import mtrx.methods.Gauss;
+import mtrx.methods.SolutionExaminer;
+import mtrx.utils.Base26;
 
 public class Mtrx {
 
@@ -12,24 +14,22 @@ public class Mtrx {
      */
     public static final int PRECISION = 3;
 
+    public static void enter(){
+        System.out.println();
+    }
+
     public static void main(String args[]){
         MatrixBuilder mb = new MatrixBuilder();
-        Matrix m = mb.fileInput("test.txt").build();
-        Matrix m2 = mb.fileInput("terkutuk.txt").build();
+        Matrix m = mb.fileInput("test2.txt").build();
         m.show(false);
-        System.out.println();
-        m2.show(false);
-        System.out.println();
-        System.out.println(m2.determinantWithCofactor());
-        System.out.println(m2.determinant());
-        System.out.println();
-        System.out.println(m.determinantWithCofactor());
-        System.out.println(m.determinant());
-        System.out.println();
+        enter();
         Gauss g = new Gauss(m);
-        g.getResult().show(true);
-        Gauss g2 = new Gauss(m2);
-        g2.getResult().show(true);
+        g.getResult().show(false);
+        enter();
+        SolutionExaminer se = new SolutionExaminer(g);
+        System.out.println(se.getResult());
+        se.showSolution();
+        enter();
     }
 
 }
