@@ -1,22 +1,27 @@
 package mtrx.methods;
 
 import mtrx.augmatrix.AugMatrix;
+import mtrx.matrix.Matrix;
 import mtrx.trait.MatrixTrait;
 import mtrx.utils.Base26;
-import mtrx.utils.NUtils;
 
 public class SolutionExaminer {
 
     private Solutions result = Solutions.NO_SOLUTION;
     private AugMatrix aug;
+    private Matrix originalMatrix;
+    private boolean notGaussJordan;
 
-    public SolutionExaminer(Gauss g){
+    public SolutionExaminer(GaussMethod g){
         if (g.hasSolution()){
             this.aug = g.getResult();
+            this.originalMatrix = g.getInitialMatrix();
             this.result = Solutions.SINGLE;
             if (this.checkMultiSolution()) this.result = Solutions.MULTI;
             if (this.checkNoSolution()) this.result = Solutions.NO_SOLUTION;
         }
+
+        this.notGaussJordan = (g instanceof Gauss) ? true : false;
     }
 
     private boolean checkNoSolution(){
@@ -70,57 +75,17 @@ public class SolutionExaminer {
                 }
 
                 for (int i = 0; i < values.length; i++){
-                    System.out.printf("X%d = %.3f\n", i, values[i]);
+                    System.out.printf("%s = %.3f\n", Base26.toBase26(i), values[i]);
                 }
                 break;
             case MULTI:
-                boolean[] colHasPivot = new boolean[this.aug.getLeft().getColCount()];
-                int lastPivotRow = -1;
-                for (int i = 0; i < values.length; i++){
-                    values[i] = 0;
-                    colHasPivot[i] = false;
-                    for (int p = this.aug.getRowCount()-1; p >= 0; p--){
-                        if (NUtils.ISEQUAL(this.aug.getLeft().getElement(p, i), 0.0D)) continue;
-                        if (NUtils.ISEQUAL(this.aug.getLeft().getElement(p, i), 1.0D) && p > lastPivotRow){
-                            lastPivotRow = p;
-                            colHasPivot[i] = true;
-                        }
-                    }
+                if (this.notGaussJordan){
+                    this.aug = new GaussJordan(this.originalMatrix).getResult();
                 }
-
-                while (true){
-                    row--;
-                    if (row < 0) break;
-                    col = this.aug.getLeft().findFirstXinRow(row, 1.0D);
-                    if (col == -1) continue;
-                    if (col+1 == this.aug.getColCount() && colHasPivot[col]){
-                        values[col] = this.aug.getRight().getElement(row, 0);
-                        continue;
+                for (int i = 0; i < this.aug.getRowCount(); i++){
+                    for (int j = 0; j < this.aug.getLeft().getColCount(); j++){
+                        
                     }
-                    if (colHasPivot[col]){
-                        values[col] = this.aug.getRight().getElement(row, 0);
-                        for (int i=col+1; i < this.aug.getLeft().getColCount(); i++){
-                            if (colHasPivot[i])
-                                values[col] -= this.aug.getLeft().getElement(row, i)*values[i];
-                        }
-                    }
-                }
-
-                row = this.aug.getRowCount();
-                while (true){
-                    row--;
-                    if (row < 0) break;
-                    col = this.aug.getLeft().findFirstXinRow(row, 1.0D);
-                    if (col == -1) continue;
-
-                    System.out.printf("X%d = %.3f", col, values[col]);
-                    for (int i = col; i < this.aug.getLeft().getColCount(); i++){
-                        double nowSubElement = this.aug.getLeft().getElement(row, i)*-1.0D;
-                        if (!colHasPivot[i]){
-                            System.out.printf(" %s%.3f%s", nowSubElement > 0.0D ? "+" : "", nowSubElement, Base26.toBase26(i));
-                        }
-                    }
-                    System.out.printf("\n");
                 }
                 break;
             default:

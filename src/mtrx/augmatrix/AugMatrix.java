@@ -123,6 +123,14 @@ public class AugMatrix implements IAugMatrix {
             this.rowOperation(i, row, (x, y) -> x - val*y);
         }
     }
+
+    @Override
+    public void eliminateFromBottom(int row, int col) {
+        for (int i = row-1; i >= 0; i--) {
+            double val = this.left.getElement(i, col) / this.left.getElement(row, col);
+            this.rowOperation(i, row, (x, y) -> x - val*y);
+        }
+    }
     
     @Override
     public int countZeroinRowUntilX(int row){

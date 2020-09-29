@@ -93,6 +93,15 @@ public interface IAugMatrix {
     public void eliminateFromTop(int row, int col);
 
     /**
+     * Mengeliminasi suatu baris dari suatu elemen
+     * ke atas.
+     * Hanya untuk matriks kiri.
+     * @param row indeks baris
+     * @param col indeks kolom
+     */
+    public void eliminateFromBottom(int row, int col);
+
+    /**
      * Menghitung angka 0 sampai bukan 0 pada
      * suatu baris.
      * @param row indeks baris

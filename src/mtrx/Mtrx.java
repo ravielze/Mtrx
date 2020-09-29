@@ -2,9 +2,8 @@ package mtrx;
 
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
-import mtrx.methods.Gauss;
+import mtrx.methods.GaussJordan;
 import mtrx.methods.SolutionExaminer;
-import mtrx.utils.Base26;
 
 public class Mtrx {
 
@@ -23,11 +22,10 @@ public class Mtrx {
         Matrix m = mb.fileInput("test2.txt").build();
         m.show(false);
         enter();
-        Gauss g = new Gauss(m);
+        GaussJordan g = new GaussJordan(m);
         g.getResult().show(false);
         enter();
         SolutionExaminer se = new SolutionExaminer(g);
-        System.out.println(se.getResult());
         se.showSolution();
         enter();
     }
