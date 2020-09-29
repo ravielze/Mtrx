@@ -19,6 +19,8 @@ public class Mtrx {
         MatrixBuilder mb = new MatrixBuilder();
         Matrix m = mb.fileInput("t.txt").build();
         m.show(false);
+        Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
+        m2.show(false);
         enter();
     }
 

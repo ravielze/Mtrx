@@ -39,6 +39,9 @@ public class Menu {
 
         })
         .addDisplay("[1] Metode Gauss", "[2] Metode Gauss-Jordan", "[3] Metode Matriks Balikan", "[4] Kaidah Crammer", "[5] Kembali");
+
+        
+        allMenus.add(SPL);
     }
 
     public Menu(String title){
