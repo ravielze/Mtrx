@@ -2,8 +2,6 @@ package mtrx;
 
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
-import mtrx.methods.GaussJordan;
-import mtrx.methods.SolutionExaminer;
 
 public class Mtrx {
 
@@ -19,14 +17,8 @@ public class Mtrx {
 
     public static void main(String args[]){
         MatrixBuilder mb = new MatrixBuilder();
-        Matrix m = mb.fileInput("test2.txt").build();
+        Matrix m = mb.fileInput("t.txt").build();
         m.show(false);
-        enter();
-        GaussJordan g = new GaussJordan(m);
-        g.getResult().show(false);
-        enter();
-        SolutionExaminer se = new SolutionExaminer(g);
-        se.showSolution();
         enter();
     }
 

@@ -1,8 +1,6 @@
 package mtrx.matrix;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MatrixBuilder {
@@ -192,7 +190,7 @@ public class MatrixBuilder {
                 this.row++;
             }
             scanner.close();
-            
+
             Scanner scanner2 = new Scanner(file);
             this.data = new double[this.row][this.col];
             for (int i = 0; i < this.row; i++){

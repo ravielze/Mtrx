@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 import mtrx.matrix.Matrix;
 
@@ -14,6 +15,31 @@ public class Menu {
     private static List<Menu> allMenus = new ArrayList<>();
     private List<Action> actions = new ArrayList<>(3);
     private List<String> displays = new ArrayList<>(5);
+
+    static {
+        mainMenu = (new Menu("Main Menu"))
+        .addActions(new Action(){
+
+            @Override
+            public Optional<Matrix> run(Matrix matrix, Menu menu) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+        })
+        .addDisplay("[1] Sistem Persamaan Linear", "[2] Determinan", "[3] Matriks Balikan", "[4] Interpolasi Polinom", "[5] Regresi Linear Berganda", "[6] Keluar");
+
+        Menu SPL = (new Menu("Sistem Persamaan Linear")).addActions(new Action(){
+
+			@Override
+			public Optional<Matrix> run(Matrix matrix, Menu menu) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+        })
+        .addDisplay("[1] Metode Gauss", "[2] Metode Gauss-Jordan", "[3] Metode Matriks Balikan", "[4] Kaidah Crammer", "[5] Kembali");
+    }
 
     public Menu(String title){
         this.menuTitle = title;
@@ -44,29 +70,51 @@ public class Menu {
         return Collections.unmodifiableList(allMenus);
     }
 
-    public void addActions(Action... actions){
+    public Menu addActions(Action... actions){
         for (Action a : actions){
             if (a != null){
                 this.actions.add(a);
             }
         }
+        return this;
     }
 
-    public void addDisplay(String... displays){
+    public Menu addDisplay(String... displays){
         for (String d : displays){
             if (d.trim().length() != 0){
                 this.displays.add(d);
             }
         }
+        return this;
     }
 
-    public void display(){
-        //TODO
+    private void display(){
+        System.out.println(this.menuTitle);
+        for (String display : this.displays){
+            System.out.println(display);
+        }
     }
 
-    public Optional<Matrix> runAction(int selection, Matrix matrix, Menu menu){
+    public Optional<Matrix> runMenu(Matrix matrix, Menu menu){
+        this.display();
+        Scanner s = new Scanner(System.in);
+        try {
+            int select = s.nextInt();
+            s.close();
+            if (select > this.actions.size() && select < 0){
+                System.out.println("Pilihan menu tidak valid.");
+                return this.runMenu(matrix, menu);
+            } else {
+                return this.runAction(select, matrix, menu);
+            }
+        } catch (Exception ex) {
+            System.out.println("Terjadi error. Ada kesalahan masukkan? Silakan input ulang!");
+            return this.runMenu(matrix, menu);
+        }
+    }
+
+    private Optional<Matrix> runAction(int selection, Matrix matrix, Menu menu){
         if (selection > this.actions.size() && selection < 0){
-            this.display();
             return Optional.empty();
         }
         return (this.actions.size() != 0) ? 
