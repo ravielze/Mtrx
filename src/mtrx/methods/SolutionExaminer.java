@@ -85,42 +85,60 @@ public class SolutionExaminer {
                 }
                 int[] fill = new int[this.aug.getColCount()-1];
                 int idx = 0;
-                for (int j = 0; j < this.aug.getLeft().getColCount(); j++) {
-                // for (int i = 0; i < this.aug.getRowCount(); i++){
+                for (int j = 0; j < this.aug.getColCount()-2; j++) {
                     boolean found = false;
                     int i = 0;
-                    // for (int j = 0; j < this.aug.getLeft().getColCount()-1; j++){
                     while (i < this.aug.getRowCount() && !found) {
-                        if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 1)) found = true;
-                        else if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 0)) i++;
+                        if (j < this.aug.getColCount()-2) {
+                            if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 1)) found = true;
+                            else if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 0)) i++;
+                            else {
+                                idx++;
+                                fill[j] = idx;
+                                found = true;
+                            }
+                        }
                         else {
-                            idx++;
-                            fill[j] = idx;
-                            found = true;
+                            if (NUtils.ISEQUAL(this.aug.getRight().getElement(0, 0), 0)) i++;
+                            else {
+                                idx++;
+                                fill[j] = idx;
+                                found = true;
+                            }
                         }
                     }
                     System.out.println(fill[j]);
                 }
                 
-                int j = 0;
-                for (int i = 0; i < this.aug.getRowCount(); i++) {
-                    // for (int j = 0; j < this.aug.getColCount()-1; j++) {
-                    System.out.printf("X%d = ", j+1);
+                for (int j = 0; j < this.aug.getColCount()-2; j++) {
+                    int i;
+                    if (j < this.aug.getColCount()-2) i = this.aug.getLeft().findFirstXinCol(j, 1);
+                    else i = this.aug.getRight().findFirstXinCol(0, 1);
+
                     if (NUtils.ISEQUAL(fill[j], 0)) {
+                        System.out.printf("X%d = ", j+1);
                         for (int k = j+1; k < this.aug.getColCount()-1; k++) {
                             if (k != this.aug.getColCount()-2) {
-                                System.out.printf("%.3f", this.aug.getLeft().getElement(i, k));
+                                if (NUtils.ISNOTEQUAL(this.aug.getLeft().getElement(i, k), 0)) {
+                                    System.out.printf("%.3f", this.aug.getLeft().getElement(i, k)*-1);
+                                    if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k]);
+                                    System.out.printf(" + ");
+                                }
                             }
                             else {
-                                System.out.printf("%.3f", this.aug.getRight().getElement(i, 0));
+                                if (NUtils.ISNOTEQUAL(this.aug.getRight().getElement(i, 0), 0)) {
+                                    System.out.printf("%.3f", this.aug.getRight().getElement(i, 0));
+                                    if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k]);
+                                }
                             }
-                            if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k]);
-                            System.out.printf(" + ");
                         }
                     }
-                    else System.out.printf("a" + fill[j]);
+                    else {
+                        System.out.printf("X%d = ", j+1);
+                        System.out.printf("a" + fill[j]);
+                    }
                     System.out.printf("\n");
-                    j++;
+                }
 
                         // if (NUtils.ISEQUAL(fill[j], 0)) {
                         //     if (j != this.aug.getColCount()-1) {
@@ -143,7 +161,6 @@ public class SolutionExaminer {
                         //     }
                         //     System.out.printf("\n");
                         // }
-                }
                 break;
             default:
                 System.out.println("Tidak ada solusi untuk SPL ini.");
