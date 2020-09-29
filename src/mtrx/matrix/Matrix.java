@@ -363,7 +363,7 @@ public class Matrix implements IMatrix {
         }
 
         Matrix temp = MatrixBuilder.clone(this);
-        int i, j;
+        int i;
     
         float result = 1;
         int swapped = 0;
