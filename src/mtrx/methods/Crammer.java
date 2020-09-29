@@ -5,10 +5,12 @@ import mtrx.matrix.Matrix;
 
 public class Crammer {
     private Matrix a, b;
+    private double[] result;
 
     public Crammer(Matrix a, Matrix b) {
         this.a = a;
         this.b = b;
+        this.operate();
     }
 
     public void operate() {
@@ -24,5 +26,10 @@ public class Crammer {
             result[j] = ((new MatrixBuilder(this.a)).cutColoumn(j).insertColoumn(j, temp).build()).
             determinant() / det;
         }
+        this.result = result;
+    }
+
+    public double[] getResult(){
+        return this.result;
     }
 }
