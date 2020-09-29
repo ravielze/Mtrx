@@ -254,8 +254,8 @@ public class MatrixBuilder {
      * @return MatrixBuilder
      */
     public MatrixBuilder subMatrix(int row, int col){
-        this.cutColoumn(col);
         this.cutRow(row);
+        this.cutColoumn(col);
         return this;
     }
 

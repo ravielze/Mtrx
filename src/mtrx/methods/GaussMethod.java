@@ -3,7 +3,7 @@ package mtrx.methods;
 import mtrx.matrix.Matrix;
 import mtrx.augmatrix.AugMatrix;
 
-public interface MatrixMethod {
+public interface GaussMethod {
 
     /**
      * Mengembalikan matriks awal.

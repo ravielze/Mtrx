@@ -1,5 +1,8 @@
 package mtrx.matrix;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -94,8 +97,26 @@ public class Matrix implements IMatrix {
 
     @Override
     public void dump(String fileName, boolean splFormat) {
-        // TODO Auto-generated method stub
-
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < this.row; i++){
+			for (int j = 0; j < this.col; j++){
+				builder.append(this.data[i][j]);
+				if (j < this.col - 1){
+					builder.append(" ");
+				}
+			}
+			if (i != this.row){
+				builder.append("\n");
+			}
+        }
+        try {
+            File file = new File(new File("../test/"+fileName).getCanonicalPath());
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(builder.toString());
+            writer.close();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -346,7 +367,6 @@ public class Matrix implements IMatrix {
     
         float result = 1;
         int swapped = 0;
-    
         while (size > 0){
             boolean swap = false;
             i = 0;
@@ -362,24 +382,18 @@ public class Matrix implements IMatrix {
             if (i == (size-1) && (size > 1)){
                 return 0;
             } else if (swap){
-                for(j = 0; j < size; j++){
-                    temp.swapRow(i, size-1);
-                }
+                temp.swapRow(i, size-1);
             }
             for (i = 0; i < (size-1); i++){
-                for(j=0; j<size; j++){
-
-                    double konstanta = temp.getElement(i, size-1)/temp.getElement(size-1, size-1);
-                    temp.rowOperation(i, size-1, (x,y) -> x-(y*konstanta));
-
-                }
+                double konstanta = temp.getElement(i, size-1)/temp.getElement(size-1, size-1);
+                temp.rowOperation(i, size-1, (x,y) -> x-(y*konstanta));
             }
             result *= temp.getElement(size-1, size-1);
             swapped = (swapped+(swap ? 1 : 0))%2;
             size--;
         }
 
-        double finalresult = (result*(swapped==0 ? 1.0d : -1.0d));
+        double finalresult = (result*(swapped==0 ? 1.0D : -1.0D));
         return NUtils.PRECISE(finalresult);
     }
 
@@ -400,7 +414,7 @@ public class Matrix implements IMatrix {
                 result += this.getElement(i, j)*cofactor(i, j);
             }
         } else {
-            int i = (this.mostXRow(0.0D) != -1) ? this.mostXCol(0.0D) : 0;
+            int i = (this.mostXRow(0.0D) != -1) ? this.mostXRow(0.0D) : 0;
             for (int j = 0; j < this.col; j++){
                 result += this.getElement(i, j)*cofactor(i, j);
             }

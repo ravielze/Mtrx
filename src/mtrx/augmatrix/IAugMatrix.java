@@ -52,8 +52,6 @@ public interface IAugMatrix {
      */
     public void swapRow(int rowA, int rowB);
 
-    //TODO augmatrix trait
-
     /**
      * Melakukan operasi pada setiap elemen di suatu baris dengan baris lain.
      * Mengubah nilai hasChanged menjadi true.
