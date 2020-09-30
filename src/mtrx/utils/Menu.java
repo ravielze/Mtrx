@@ -2,6 +2,8 @@ package mtrx.utils;
 
 import java.util.Scanner;
 
+import mtrx.MtrxMain;
+
 public class Menu {
     public static void mainMenu() {
         System.out.println("MENU");
@@ -30,7 +32,7 @@ public class Menu {
     }
 
     public static void runMenu() {
-        Scanner keyboard = new Scanner(System.in);
+        Scanner keyboard = MtrxMain.scn;
 
         while (true) {
             mainMenu();
@@ -91,6 +93,5 @@ public class Menu {
                 System.out.println("Input invalid. Silakan masukkan range angka sesuai menu.");
             }
         }
-        keyboard.close();
     }
 }

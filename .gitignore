@@ -4,3 +4,4 @@
 *.jar
 /bin
 /test
+/output

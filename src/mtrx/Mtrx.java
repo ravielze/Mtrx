@@ -1,5 +1,7 @@
 package mtrx;
 
+import java.util.Scanner;
+
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
 import mtrx.methods.Crammer;
@@ -19,16 +21,21 @@ public class Mtrx {
 
     public static void main(String args[]){
         MatrixBuilder mb = new MatrixBuilder();
-        Matrix m = mb.fileInput("percobaan aug.txt").build();
-        // m.show(false);
-        // Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
-        // m2.show(false);
+        Scanner sn = new Scanner(System.in);
+        System.out.print("Test: ");
+        int N = sn.nextInt();
+        for (int i = 0; i < N; i++){
+            Matrix m = mb.consoleInput(true).build();
+            m.show(false);
+        }
+        sn.close();
+        /*Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
+        Gauss g = new Gauss(m2);
         Crammer c = new Crammer(m);
-        c.getResult();
-        enter();
         SolutionExaminer se = new SolutionExaminer(c);
         se.showSolution();
-        enter();
+        m2.show(false);
+        enter();*/
     }
 
 }

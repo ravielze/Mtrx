@@ -2,6 +2,7 @@ package mtrx.methods;
 
 import mtrx.augmatrix.AugMatrix;
 import mtrx.matrix.Matrix;
+import mtrx.matrix.MatrixBuilder;
 
 public class InverseSPL implements SPLMethods {
 
@@ -11,18 +12,28 @@ public class InverseSPL implements SPLMethods {
      */
 
     private Matrix inverse;
-    private AugMatrix aug;
+    private Matrix mb;
+    private AugMatrix result;
     private boolean hasSolution;
     
     // Asumsi sudah pasti inverse yang valid
-    public InverseSPL(final Matrix MAInverse, final Matrix MB){
+    public InverseSPL(Matrix MAInverse, Matrix MB){
         this.inverse = MAInverse;
+        this.mb = MB;
+        this.operate();
+        this.hasSolution = true;
+    }
+
+    public void operate() {
+        Matrix mresult = this.inverse.multiply(this.mb);
+
+        Matrix ID = new MatrixBuilder(this.inverse.getColCount()).build();
+        this.result = new AugMatrix(ID, mresult);
     }
 
     @Override
     public Matrix getInitialMatrix() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.inverse;
     }
 
     /**
@@ -32,14 +43,12 @@ public class InverseSPL implements SPLMethods {
      */
     @Override
     public AugMatrix getResult() {
-        // TODO Auto-generated method stub
-        return null;
+        return (this.hasSolution() ? this.result : null);
     }
 
     @Override
     public boolean hasSolution() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.hasSolution;
     }
     
 }
