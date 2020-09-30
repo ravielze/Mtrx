@@ -12,30 +12,22 @@ public class InverseSPL implements SPLMethods {
      */
 
     private Matrix inverse;
-    private AugMatrix aug;
+    private Matrix mb;
     private AugMatrix result;
     private boolean hasSolution;
     
     // Asumsi sudah pasti inverse yang valid
     public InverseSPL(Matrix MAInverse, Matrix MB){
         this.inverse = MAInverse;
-        this.aug = new AugMatrix(MAInverse, MB);
-        operate();
+        this.mb = MB;
+        this.operate();
         this.hasSolution = true;
     }
 
     public void operate() {
-        Matrix mresult = new MatrixBuilder(this.aug.getRowCount(), 1).build();
-        int x;
-        for (int i = 0; i < this.aug.getRowCount(); i++) {
-            x = 0;
-            for (int j = 0; j < this.aug.getLeft().getColCount(); j++) {
-                x += (this.aug.getLeft().getElement(i, j) * this.aug.getRight().getElement(j, 0));
-            }
-            mresult.setElement(i, 0, x);
-        }
+        Matrix mresult = this.inverse.multiply(this.mb);
 
-        Matrix ID = new MatrixBuilder(this.aug.getRowCount()).build();
+        Matrix ID = new MatrixBuilder(this.inverse.getColCount()).build();
         this.result = new AugMatrix(ID, mresult);
     }
 
