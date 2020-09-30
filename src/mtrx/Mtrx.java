@@ -1,10 +1,8 @@
 package mtrx;
 
-import java.util.Scanner;
-
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
-import mtrx.methods.Crammer;
+import mtrx.methods.Gauss;
 import mtrx.methods.SolutionExaminer;
 
 public class Mtrx {
@@ -20,6 +18,10 @@ public class Mtrx {
     }
 
     public static void main(String args[]){
+        Matrix m = (new MatrixBuilder()).fileInput("terkutuk.txt").build();
+        Gauss g = new Gauss(m);
+        SolutionExaminer se = new SolutionExaminer(g);
+        se.showSolution();
         /*Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
         Gauss g = new Gauss(m2);
         Crammer c = new Crammer(m);

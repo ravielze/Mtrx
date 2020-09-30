@@ -1,7 +1,5 @@
 package mtrx.utils;
 
-import java.text.DecimalFormat;
-
 import mtrx.Mtrx;
 
 public class NUtils {

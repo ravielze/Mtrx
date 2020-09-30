@@ -84,7 +84,7 @@ public class SolutionExaminer {
                 }
 
                 for (int i = 0; i < values.length; i++){
-                    System.out.printf("%s = %.3f\n", Base26.toBase26(i), values[i]);
+                    System.out.printf("%s = %s\n", Base26.toBase26(i), NUtils.TOSTRING(values[i]));
                 }
                 break;
             case MULTI:
