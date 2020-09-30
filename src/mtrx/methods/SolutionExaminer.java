@@ -129,30 +129,30 @@ public class SolutionExaminer {
                     int i = (j < this.aug.getColCount()-2 ? this.aug.getLeft().findFirstXinCol(j, 1) : 
                     this.aug.getRight().findFirstXinCol(0, 1));
 
-                    if (NUtils.ISEQUAL(fill[j], 0)) {
+                    if (fill[j] == 0) {
                         System.out.printf("X%d = ", j+1);
                         boolean found = false;
                         for (int k = j+1; k < this.aug.getColCount()-1; k++) {
                             if (k != this.aug.getColCount()-2) {
                                 if (NUtils.ISNOTEQUAL(this.aug.getLeft().getElement(i, k), 0)) {
                                     if (found && this.aug.getLeft().getElement(i, k) < 0) System.out.printf(" + ");
-                                    System.out.printf("%.3f", this.aug.getLeft().getElement(i, k)*-1);
-                                    if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k] + " ");
+                                    System.out.printf("%s", NUtils.TOSTRING(this.aug.getLeft().getElement(i, k)*-1));
+                                    if (fill[k] != 0) System.out.printf("%s ", Base26.toBase26(fill[k]-1));
                                     found = true;
                                 }
                             }
                             else {
                                 if (NUtils.ISNOTEQUAL(this.aug.getRight().getElement(i, 0), 0)) {
                                     if (found) System.out.printf("+ ");
-                                    System.out.printf("%.3f", this.aug.getRight().getElement(i, 0));
-                                    if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k]);
+                                    System.out.printf("%s", NUtils.TOSTRING(this.aug.getRight().getElement(i, 0)));
+                                    if (fill[k] != 0) System.out.printf("%s ", Base26.toBase26(fill[k]-1));
                                 }
                             }
                         }
                     }
                     else {
                         System.out.printf("X%d = ", j+1);
-                        System.out.printf("a" + fill[j]);
+                        System.out.printf("%s", Base26.toBase26(fill[j]-1));
                     }
                     System.out.printf("\n");
                 }

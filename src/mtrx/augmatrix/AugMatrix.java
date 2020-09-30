@@ -3,6 +3,7 @@ package mtrx.augmatrix;
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
 import mtrx.matrix.MatrixOperation;
+import mtrx.utils.Base26;
 import mtrx.utils.NUtils;
 
 public class AugMatrix implements IAugMatrix {
@@ -47,26 +48,20 @@ public class AugMatrix implements IAugMatrix {
         if (splFormat) {
             for (i = 0; i < this.left.getRowCount(); i++) {
                 for (j = 0; j < this.left.getColCount(); j++) {
-                    System.out.printf("%.3fX%d ", this.left.getElement(i, j), j+1);
+                    System.out.printf("%s%s ", NUtils.TOSTRING(this.left.getElement(i, j)), Base26.toBase26(j));
                     if (j < this.left.getColCount()-1) System.out.printf("+ ");
                 }
-                System.out.printf("= %.3f\n", this.right.getElement(i, 0));
+                System.out.printf("= %s\n", NUtils.TOSTRING(this.right.getElement(i, 0)));
             }
         }
         else {
             for (i = 0; i < this.left.getRowCount(); i++) {
                 for (j = 0; j < this.left.getColCount(); j++) {
-                    System.out.printf("%.3f ", this.left.getElement(i, j));
+                    System.out.printf("%s ", NUtils.TOSTRING(this.left.getElement(i, j)));
                 }
-                System.out.printf("%.3f\n", this.right.getElement(i, 0));
+                System.out.printf("| %s\n", NUtils.TOSTRING(this.right.getElement(i, 0)));
             }
         }
-    }
-
-    @Override
-    public void dump(String fileName, boolean splFormat) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

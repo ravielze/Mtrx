@@ -20,13 +20,20 @@ public class Base26 {
         if (i == 0) return "a";
         if (i < 0) return null;
 
-        String result = "";
-        int angka = i;
-        while (angka != 0){
-            result += mapping[(angka%26)+1];
-            angka = angka/26;
-        }
-        return result;
+        StringBuilder result = new StringBuilder(); 
+        int num = i;
+        while (num > 0) {
+            int rem = num % 26; 
+            if (rem == 0) { 
+                result.append("z"); 
+                num = (num / 26) - 1; 
+            } 
+            else{ 
+                result.append((char)((rem - 1) + 'a')); 
+                num = num / 26; 
+            } 
+        } 
+        return result.reverse().toString();
     }
 
     

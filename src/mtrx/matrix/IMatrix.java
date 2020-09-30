@@ -61,7 +61,7 @@ public interface IMatrix {
      * @param splFormat jika true mengeluarkan dalam bentuk SPL (aX1+bX2+...=k)
      *                  jika false mengeluarkan dalam bentuk tabel
      */
-    public void dump(String fileName, boolean splFormat);
+    //public void dump(String fileName, boolean splFormat);
 
     /**
      * Mengecek matrix memiliki suatu sifat.

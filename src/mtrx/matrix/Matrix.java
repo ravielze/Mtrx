@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import mtrx.trait.MatrixTrait;
+import mtrx.utils.Base26;
 import mtrx.utils.NUtils;
 
 public class Matrix implements IMatrix {
@@ -79,7 +80,7 @@ public class Matrix implements IMatrix {
             for (int i = 0; i < this.row; i++) {
                 for (int j = 0; j < this.col; j++) {
                     if (j != this.col - 1) {
-                        System.out.print(this.data[i][j] + "X" + j+1 + " ");
+                        System.out.printf("%s%s ", NUtils.TOSTRING(this.data[i][j]), Base26.toBase26(j));
                     } else {
                         System.out.println("= " + this.data[i][j]);
                     }
@@ -88,14 +89,14 @@ public class Matrix implements IMatrix {
         } else {
             for (int i = 0; i < this.row; i++) {
                 for (int j = 0; j < this.col; j++) {
-                    System.out.printf("%.3f ", this.data[i][j]);
+                    System.out.printf("%s ", NUtils.TOSTRING(this.data[i][j]));
                 }
                 System.out.println();
             }
         }
     }
 
-    @Override
+    /*@Override
     public void dump(String fileName, boolean splFormat) {
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < this.row; i++){
@@ -117,7 +118,7 @@ public class Matrix implements IMatrix {
         } catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     public boolean hasTrait(MatrixTrait mt) {
