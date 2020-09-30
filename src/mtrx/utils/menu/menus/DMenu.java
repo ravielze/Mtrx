@@ -2,9 +2,9 @@ package mtrx.utils.menu.menus;
 
 import mtrx.utils.menu.XMenu;
 
-public class SPLMenu extends XMenu {
+public class DMenu extends XMenu{
 
-    public SPLMenu(){
+    public DMenu(){
         this.run();
     }
 
@@ -13,23 +13,22 @@ public class SPLMenu extends XMenu {
         InputMenu im = new InputMenu();
         this.matrixMenu = im.getMatrix();
         this.display();
-        int metode = select(1,4);
+        int metode = select(1,2);
         switch(metode){
             case 1:
-                new GaussMenu(this.matrixMenu);
+                new DRBMenu(this.matrixMenu);
+                break;
             default:
+                print("b");
                 break;
         }
     }
 
     @Override
     protected void display() {
-        print("Metode Sistem Persamaan Linear");
-        print("[1] Metode eliminasi Gauss");
-        print("[2] Metode eliminasi Gauss-Jordan");
-        print("[3] Metode matriks balikan");
-        print("[4] Kaidah Cramer");
-
+        print("Metode Determinan");
+        print("[1] Metode Reduksi Baris");
+        print("[2] Metode Ekpansi Kofaktor");
     }
     
 }

@@ -2,7 +2,7 @@ package mtrx;
 
 import java.util.Scanner;
 
-import mtrx.utils.menu.menus.SPLMenu;
+import mtrx.utils.menu.menus.DMenu;
 
 public class MtrxMain {
 
@@ -10,7 +10,7 @@ public class MtrxMain {
 
     public static void main(String args[]){
         scn = new Scanner(System.in);
-        new SPLMenu();
+        new DMenu();
         scn.close();
     }
 }

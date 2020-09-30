@@ -7,6 +7,10 @@ import mtrx.utils.menu.XMenu;
 
 public class InputMenu extends XMenu {
 
+    public InputMenu(){
+        this.run();
+    }
+
     @Override
     protected void run() {
         this.display();
@@ -23,12 +27,11 @@ public class InputMenu extends XMenu {
 
     private Matrix createMatrixfromConsole(){
         return (new MatrixBuilder()).consoleInput(true).build();
-        //return (new MatrixBuilder()).fileInput("test2.txt").build();
     }
 
     private Matrix createMatrixfromFile(){
-        System.out.println("Masukkan nama file: ");
-        String filename = MtrxMain.scn.nextLine();
+        System.out.print("Masukkan nama file: ");
+        String filename = MtrxMain.scn.next();
         Matrix created = (new MatrixBuilder()).fileInput(filename).build();
         return created;
     }
@@ -39,6 +42,7 @@ public class InputMenu extends XMenu {
 
     @Override
     protected void display() {
+        print("Input Matrix");
         print("[1] Console Input");
         print("[2] File Input");
     }
