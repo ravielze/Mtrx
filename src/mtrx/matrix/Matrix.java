@@ -435,14 +435,11 @@ public class Matrix implements IMatrix {
 
     public Matrix inverse() {
         Matrix origin = (new MatrixBuilder(this)).build();
+        double det = origin.determinant();
         Matrix result = origin.adjoint();
-        double newEl;
 
         for (int i = 0; i < this.row; i++) {
-            for (int j = 0; j < this.col; j++) {
-                newEl = result.getElement(i, j) / origin.determinant();
-                result.setElement(i, j, NUtils.PRECISE(newEl));
-            }
+            result.rowOperation(i, (x, y) -> x/det);
         }
 
         return result;
