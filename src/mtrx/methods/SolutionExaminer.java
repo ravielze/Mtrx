@@ -25,6 +25,14 @@ public class SolutionExaminer {
         this.notGaussJordan = (g instanceof Gauss) ? true : false;
     }
 
+    public SolutionExaminer(SPLMethods spl){
+        if (spl.hasSolution()){
+            this.aug = spl.getResult();
+            this.originalMatrix = spl.getInitialMatrix();
+            this.result = Solutions.SINGLE;
+        }
+    }
+
     private boolean checkNoSolution(){
         boolean noSolution = false;
         for (int i = 0; i < this.aug.getRowCount(); i ++){
@@ -155,11 +163,3 @@ public class SolutionExaminer {
         }
     }
 }
-/**
- * x1 = –3r – 4s – 2t
- * x2 = r
- * x3 = –2s
- * x4 = s
- * x5 = t
- * x6 = 1/3 
- */

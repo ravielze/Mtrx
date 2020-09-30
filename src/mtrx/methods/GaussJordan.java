@@ -9,13 +9,11 @@ public class GaussJordan implements GaussMethod {
 
     private AugMatrix result;
     private Matrix originalMatrix;
-    private int swapTimes;
     private boolean hasSolution;
 
     public GaussJordan(Matrix matrix){
         this.originalMatrix = MatrixBuilder.clone(matrix);
         this.result = new AugMatrix(matrix);
-        this.swapTimes = 0;
         this.hasSolution = false;
         this.operate();
     }
@@ -50,7 +48,7 @@ public class GaussJordan implements GaussMethod {
                 row++;
             }
             for (int i = 0; i < this.result.getRowCount(); i++){
-                this.swapTimes += (this.result.fixZeroRow(i) ? 1 : 0);
+                this.result.fixZeroRow(i);
             }
             if (col >= this.result.getLeft().getColCount() || row >= this.result.getLeft().getRowCount()) break;
         }
@@ -72,9 +70,4 @@ public class GaussJordan implements GaussMethod {
         return this.hasSolution;
     }
 
-    @Override
-    public int getSwapTimes() {
-        return this.swapTimes;
-    }
-    
 }

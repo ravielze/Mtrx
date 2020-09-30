@@ -1,9 +1,9 @@
 package mtrx.methods;
 
-import mtrx.matrix.Matrix;
 import mtrx.augmatrix.AugMatrix;
+import mtrx.matrix.Matrix;
 
-public interface GaussMethod {
+public interface SPLMethods {
 
     /**
      * Mengembalikan matriks awal.
