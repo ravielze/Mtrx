@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
+import mtrx.methods.Crammer;
+import mtrx.methods.SolutionExaminer;
 
 public class Mtrx {
 
