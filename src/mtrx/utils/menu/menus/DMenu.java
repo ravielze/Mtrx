@@ -18,8 +18,10 @@ public class DMenu extends XMenu{
             case 1:
                 new DRBMenu(this.matrixMenu);
                 break;
+            case 2:
+                new DEKMenu(this.matrixMenu);
+                break;
             default:
-                print("b");
                 break;
         }
     }
