@@ -21,7 +21,7 @@ public class GaussMenu extends XMenu{
         SolutionExaminer se = new SolutionExaminer(g);
         int select = select(1,2);
         switch (select){
-            case 1:
+            case 2:
                 try {
                     File file = new File(new File("../output/"+inputNamaFile()).getCanonicalPath());
                     if (!file.exists()){
@@ -48,7 +48,7 @@ public class GaussMenu extends XMenu{
 
     private String inputNamaFile(){
         System.out.print("Masukkan nama file: ");
-        String filename = MtrxMain.scn.nextLine();
+        String filename = MtrxMain.scn.next();
         return filename;
     }
 

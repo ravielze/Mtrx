@@ -23,7 +23,7 @@ public class InputMenu extends XMenu {
 
     private Matrix createMatrixfromConsole(){
         //return (new MatrixBuilder()).consoleInput(true).build();
-        return (new MatrixBuilder()).fileInput("test.txt").build();
+        return (new MatrixBuilder()).fileInput("test2.txt").build();
     }
 
     private Matrix createMatrixfromFile(){
