@@ -1,7 +1,11 @@
 package mtrx;
 
-import mtrx.utils.Base26;
-import mtrx.utils.NUtils;
+import java.util.Scanner;
+
+import mtrx.matrix.Matrix;
+import mtrx.matrix.MatrixBuilder;
+import mtrx.methods.Crammer;
+import mtrx.methods.SolutionExaminer;
 
 public class Mtrx {
 
@@ -16,20 +20,6 @@ public class Mtrx {
     }
 
     public static void main(String args[]){
-        System.out.println(NUtils.TOSTRING(3511.332D));
-        System.out.println(NUtils.TOSTRING(12.5D));
-        System.out.println(NUtils.TOSTRING(0.0003D*-1.0D));
-        System.out.println(NUtils.TOSTRING(1.0D));
-        System.out.println(NUtils.TOSTRING(1.01D));
-        System.out.println(NUtils.TOSTRING(1.001D));
-        System.out.println(Base26.toBase26(1));
-        System.out.println(Base26.toBase26(5));
-        System.out.println(Base26.toBase26(25));
-        System.out.println(Base26.toBase26(27));
-        System.out.println(Base26.toBase26(28));
-        System.out.println(Base26.toBase26(29));
-        System.out.println(Base26.toBase26(100));
-        System.out.println(Base26.toBase26(26*26*26+26*26+28));
         /*Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
         Gauss g = new Gauss(m2);
         Crammer c = new Crammer(m);
