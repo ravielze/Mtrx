@@ -86,16 +86,24 @@ public class SolutionExaminer {
                 int[] fill = new int[this.aug.getColCount()-1];
                 int idx = 0;
                 for (int j = 0; j < this.aug.getColCount()-2; j++) {
-                    boolean found = false;
                     int i = 0;
-                    while (i < this.aug.getRowCount() && !found) {
+                    while (i < this.aug.getRowCount()) {
                         if (j < this.aug.getColCount()-2) {
-                            if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 1)) found = true;
+                            if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 1)) {
+                                for (int l = 0; l < this.aug.getRowCount(); l++) { 
+                                    if (NUtils.ISNOTEQUAL(this.aug.getLeft().getElement(l, j), 0) && l != i) {
+                                        idx++;
+                                        fill[j] = idx;
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
                             else if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 0)) i++;
                             else {
                                 idx++;
                                 fill[j] = idx;
-                                found = true;
+                                break;
                             }
                         }
                         else {
@@ -103,30 +111,31 @@ public class SolutionExaminer {
                             else {
                                 idx++;
                                 fill[j] = idx;
-                                found = true;
+                                break;
                             }
                         }
                     }
-                    System.out.println(fill[j]);
                 }
                 
                 for (int j = 0; j < this.aug.getColCount()-2; j++) {
-                    int i;
-                    if (j < this.aug.getColCount()-2) i = this.aug.getLeft().findFirstXinCol(j, 1);
-                    else i = this.aug.getRight().findFirstXinCol(0, 1);
+                    int i = (j < this.aug.getColCount()-2 ? this.aug.getLeft().findFirstXinCol(j, 1) : 
+                    this.aug.getRight().findFirstXinCol(0, 1));
 
                     if (NUtils.ISEQUAL(fill[j], 0)) {
                         System.out.printf("X%d = ", j+1);
+                        boolean found = false;
                         for (int k = j+1; k < this.aug.getColCount()-1; k++) {
                             if (k != this.aug.getColCount()-2) {
                                 if (NUtils.ISNOTEQUAL(this.aug.getLeft().getElement(i, k), 0)) {
+                                    if (found && this.aug.getLeft().getElement(i, k) < 0) System.out.printf(" + ");
                                     System.out.printf("%.3f", this.aug.getLeft().getElement(i, k)*-1);
-                                    if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k]);
-                                    System.out.printf(" + ");
+                                    if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k] + " ");
+                                    found = true;
                                 }
                             }
                             else {
                                 if (NUtils.ISNOTEQUAL(this.aug.getRight().getElement(i, 0), 0)) {
+                                    if (found) System.out.printf("+ ");
                                     System.out.printf("%.3f", this.aug.getRight().getElement(i, 0));
                                     if (NUtils.ISNOTEQUAL(fill[k], 0)) System.out.printf("a" + fill[k]);
                                 }
@@ -139,28 +148,6 @@ public class SolutionExaminer {
                     }
                     System.out.printf("\n");
                 }
-
-                        // if (NUtils.ISEQUAL(fill[j], 0)) {
-                        //     if (j != this.aug.getColCount()-1) {
-                        //         System.out.printf("%.3f + ", this.aug.getLeft().getElement(i, j));
-                        //     }
-                        //     else {
-                        //         System.out.printf("%.3f\n", this.aug.getRight().getElement(i, 0));
-                        //     }
-                        // }
-                        //     for (int k = 0; k < this.aug.getColCount()-1; k++) {
-                        //         if (j != this.aug.getColCount()-1){
-                        //             System.out.printf(" + %.3f", this.aug.getLeft().getElement(i, k));
-                        //             if (NUtils.ISNOTEQUAL(fill[k], 0)) {
-                        //                 System.out.printf("a" + fill[k]);
-                        //             }
-                        //         }
-                        //         else {
-                        //             System.out.printf(" +%.3f", this.aug.getRight().getElement(i, 0));
-                        //         }
-                        //     }
-                        //     System.out.printf("\n");
-                        // }
                 break;
             default:
                 System.out.println("Tidak ada solusi untuk SPL ini.");
