@@ -1,6 +1,7 @@
 package mtrx.matrix;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class MatrixBuilder {
@@ -152,21 +153,39 @@ public class MatrixBuilder {
 
     /**
      * Fungsi menerima input terminal/console.
+     * @param matrixStyle false jika menggunakan style interpolasi
      * @return MatrixBuilder
      */
-    public MatrixBuilder consoleInput(){
-        Scanner s = new Scanner(System.in);
-        System.out.print("Masukkan Baris: ");
-        this.row = s.nextInt();
-        System.out.print("Masukkan Kolom: ");
-        this.col = s.nextInt();
-		this.data = new double[this.row][this.col];
-		for (int i=0; i<this.row; i++) {
-            for (int j=0 ; j<this.col; j++){
-                this.data[i][j] = s.nextDouble();
+    public MatrixBuilder consoleInput(boolean matrixStyle){
+        if (matrixStyle){
+            Scanner s = new Scanner(System.in);
+            System.out.print("Masukkan Baris: ");
+            this.row = s.nextInt();
+            System.out.print("Masukkan Kolom: ");
+            this.col = s.nextInt();
+            this.data = new double[this.row][this.col];
+            for (int i=0; i<this.row; i++) {
+                for (int j=0 ; j<this.col; j++){
+                    this.data[i][j] = s.nextDouble();
+                }
             }
+            s.close();
+        } else {
+            Scanner s = new Scanner(System.in);
+            System.out.print("Masukkan Berapa Pasangan: ");
+            this.row = s.nextInt();
+            this.col = this.row+1;
+            this.data = new double[this.row][this.col];
+            System.out.println("Masukkan Data: ");
+            for (int i = 0; i < this.row; i++){
+                double x = s.nextDouble();
+                double y = s.nextDouble();
+                for (int j = 0; j < this.col; j++){
+                    this.data[i][j] = (j != this.col-1) ? Math.pow(x, j) : y;
+                }
+            }
+            s.close();
         }
-        s.close();
         return this;
     }
 
@@ -179,21 +198,28 @@ public class MatrixBuilder {
         try {
             File file = new File(new File("../test/"+fileName).getCanonicalPath());
             Scanner scanner = new Scanner(file);
-            this.row = scanner.nextInt();
-            this.col = scanner.nextInt();
 
-            if (scanner.hasNextLine())
-                scanner.nextLine();
-
-            this.data = new double[row][col];
-            for (int i = 0; i < this.row; i++){
-                for (int j = 0; j < this.col; j++){
-                    this.data[i][j] = (scanner.hasNext() ? scanner.nextDouble() : 0.0D);
+            this.col = 0;
+            this.row = 0;
+            while(scanner.hasNextLine()){
+                if(this.row == 0){
+                    this.col = (scanner.nextLine().trim().split(" ")).length;
                 }
-                if (scanner.hasNextLine())
-                scanner.nextLine();
+                else scanner.nextLine();
+                this.row++;
             }
             scanner.close();
+
+            Scanner scanner2 = new Scanner(file);
+            this.data = new double[this.row][this.col];
+            for (int i = 0; i < this.row; i++){
+                for (int j = 0; j <this.col; j++){
+                    this.data[i][j] = scanner2.nextDouble();
+                }
+            }
+            scanner2.close();
+        } catch (FileNotFoundException ex){
+            System.out.println("File tidak ditemukan.");
         } catch (Exception ex){
             ex.printStackTrace();
         }
