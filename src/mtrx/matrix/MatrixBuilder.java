@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import mtrx.MtrxMain;
+
 public class MatrixBuilder {
 
     private int row = 0, col = 0;
@@ -158,33 +160,30 @@ public class MatrixBuilder {
      */
     public MatrixBuilder consoleInput(boolean matrixStyle){
         if (matrixStyle){
-            Scanner s = new Scanner(System.in);
             System.out.print("Masukkan Baris: ");
-            this.row = s.nextInt();
+            this.row = MtrxMain.scn.nextInt();
             System.out.print("Masukkan Kolom: ");
-            this.col = s.nextInt();
+            this.col = MtrxMain.scn.nextInt();
             this.data = new double[this.row][this.col];
             for (int i=0; i<this.row; i++) {
                 for (int j=0 ; j<this.col; j++){
-                    this.data[i][j] = s.nextDouble();
+                    if (MtrxMain.scn.hasNextDouble())
+                    this.data[i][j] = MtrxMain.scn.nextDouble();
                 }
             }
-            s.close();
         } else {
-            Scanner s = new Scanner(System.in);
             System.out.print("Masukkan Berapa Pasangan: ");
-            this.row = s.nextInt();
+            this.row = MtrxMain.scn.nextInt();
             this.col = this.row+1;
             this.data = new double[this.row][this.col];
             System.out.println("Masukkan Data: ");
             for (int i = 0; i < this.row; i++){
-                double x = s.nextDouble();
-                double y = s.nextDouble();
+                double x = MtrxMain.scn.nextDouble();
+                double y = MtrxMain.scn.nextDouble();
                 for (int j = 0; j < this.col; j++){
                     this.data[i][j] = (j != this.col-1) ? Math.pow(x, j) : y;
                 }
             }
-            s.close();
         }
         return this;
     }
@@ -219,7 +218,7 @@ public class MatrixBuilder {
             }
             scanner2.close();
         } catch (FileNotFoundException ex){
-            System.out.println("File tidak ditemukan.");
+            System.out.println("File tidak ditemukan. Membuat matrix 1x1 berisi angka 1.");
         } catch (Exception ex){
             ex.printStackTrace();
         }
