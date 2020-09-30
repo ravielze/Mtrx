@@ -2,6 +2,8 @@ package mtrx;
 
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
+import mtrx.methods.Crammer;
+import mtrx.methods.SolutionExaminer;
 
 public class Mtrx {
 
@@ -17,10 +19,15 @@ public class Mtrx {
 
     public static void main(String args[]){
         MatrixBuilder mb = new MatrixBuilder();
-        Matrix m = mb.fileInput("t.txt").build();
-        m.show(false);
-        Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
-        m2.show(false);
+        Matrix m = mb.fileInput("percobaan aug.txt").build();
+        // m.show(false);
+        // Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
+        // m2.show(false);
+        Crammer c = new Crammer(m);
+        c.getResult();
+        enter();
+        SolutionExaminer se = new SolutionExaminer(c);
+        se.showSolution();
         enter();
     }
 
