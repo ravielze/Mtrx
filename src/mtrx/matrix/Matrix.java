@@ -426,7 +426,7 @@ public class Matrix implements IMatrix {
         Matrix result = (new MatrixBuilder(this)).build();
 
         for (int i = 0; i < this.row; i++) {
-            for (int j = 0; j < this.col; i++) {
+            for (int j = 0; j < this.col; j++) {
                 result.setElement(i, j, cofactor(i, j));
             }
         }
@@ -436,12 +436,13 @@ public class Matrix implements IMatrix {
     }
 
     public Matrix inverse() {
-        Matrix result = (new MatrixBuilder(this)).build().adjoint();
+        Matrix origin = (new MatrixBuilder(this)).build();
+        Matrix result = origin.adjoint();
         double newEl;
 
         for (int i = 0; i < this.row; i++) {
-            for (int j = 0; j < this.col; i++) {
-                newEl = getElement(i, j) / result.determinant();
+            for (int j = 0; j < this.col; j++) {
+                newEl = result.getElement(i, j) / origin.determinant();
                 result.setElement(i, j, NUtils.PRECISE(newEl));
             }
         }
