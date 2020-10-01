@@ -77,6 +77,7 @@ public class Matrix implements IMatrix {
             for (int i = 0; i < this.row; i++) {
                 for (int j = 0; j < this.col; j++) {
                     if (j != this.col - 1) {
+                        if (NUtils.ISEQUAL(this.data[i][j], 0.0D)) continue;
                         System.out.printf("%s%s%s",((j != 0 && this.data[i][j] > 0.0D) ? "+" : ""), NUtils.TOSTRING(this.data[i][j]), Base26.toBase26(j));
                     } else {
                         System.out.println("= " + this.data[i][j]);
