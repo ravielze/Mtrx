@@ -77,7 +77,7 @@ public class Matrix implements IMatrix {
             for (int i = 0; i < this.row; i++) {
                 for (int j = 0; j < this.col; j++) {
                     if (j != this.col - 1) {
-                        System.out.printf("%s%s ", NUtils.TOSTRING(this.data[i][j]), Base26.toBase26(j));
+                        System.out.printf("%s%s%s",((j != 0 && this.data[i][j] > 0.0D) ? "+" : ""), NUtils.TOSTRING(this.data[i][j]), Base26.toBase26(j));
                     } else {
                         System.out.println("= " + this.data[i][j]);
                     }
@@ -409,12 +409,16 @@ public class Matrix implements IMatrix {
         if (this.mostXCol(0.0D) != -1){
             int j = this.mostXCol(0.0D);
             for (int i = 0; i < this.row; i++){
-                result += this.getElement(i, j)*cofactor(i, j);
+                double cof = cofactor(i, j);
+                if (Double.isNaN(cof)) return Double.NaN;
+                result += this.getElement(i, j)*cof;
             }
         } else {
             int i = (this.mostXRow(0.0D) != -1) ? this.mostXRow(0.0D) : 0;
             for (int j = 0; j < this.col; j++){
-                result += this.getElement(i, j)*cofactor(i, j);
+                double cof = cofactor(i, j);
+                if (Double.isNaN(cof)) return Double.NaN;
+                result += this.getElement(i, j)*cof;
             }
         }
         return result;
@@ -434,8 +438,10 @@ public class Matrix implements IMatrix {
     }
 
     public Matrix inverse() {
+        double det = this.determinant();
+        if (Double.isNaN(det)) return null;
+        
         Matrix origin = (new MatrixBuilder(this)).build();
-        double det = origin.determinant();
         Matrix result = origin.adjoint();
 
         for (int i = 0; i < this.row; i++) {

@@ -62,7 +62,7 @@ public class GaussJordan implements GaussMethod {
 
     @Override
     public AugMatrix getResult() {
-        return (this.hasSolution ? this.result : null);
+        return this.result;
     }
 
     @Override

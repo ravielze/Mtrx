@@ -14,7 +14,6 @@ public interface GaussMethod {
     /**
      * Mengembalikan matriks akhir.
      * @return Matriks Akhir setelah dioperasikan.
-     * Bernilai null apabila tidak punya solusi.
      */
     public AugMatrix getResult();
 

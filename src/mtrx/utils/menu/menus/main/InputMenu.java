@@ -22,6 +22,8 @@ public class InputMenu extends XMenu {
             case 2:
                 this.matrixMenu = createMatrixfromFile();
                 break;
+            default:
+                break;
         }
     }
 
@@ -30,8 +32,10 @@ public class InputMenu extends XMenu {
     }
 
     private Matrix createMatrixfromFile(){
+        System.out.println();
         System.out.print("Masukkan nama file: ");
         String filename = MtrxMain.scn.next();
+        if (!filename.endsWith(".txt"))filename = filename+".txt";
         Matrix created = (new MatrixBuilder()).fileInput(filename).build();
         return created;
     }

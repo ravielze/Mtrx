@@ -15,7 +15,7 @@ public class InverseGaussJordan extends GaussJordan {
     }
 
     public Matrix getInvers(){
-        return (this.hasSolution ? this.getResult().getRight() : null);
+        return this.getResult().getRight();
     }
 
     @Override

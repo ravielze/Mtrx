@@ -19,7 +19,13 @@ public class AdjMenu extends XMenu {
             case 2:
                 this.toFile();
             default:
-                adj.show(false);
+                this.statusprint("Invers dengan Adjoin");
+                if (adj == null){
+                    print("Matriks ini tidak memiliki invers.");
+                } else {
+                    adj.show(false);
+                }
+                print();
                 break;
         }
         this.toConsole();
@@ -27,7 +33,8 @@ public class AdjMenu extends XMenu {
 
     @Override
     protected void display() {
-        print("Matriks balikan - Adjoin");
+        print();
+        print("Invers - Adjoin");
         print("> Lihat solusi di?");
         print("[1] Console");
         print("[2] File");

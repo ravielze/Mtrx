@@ -11,13 +11,16 @@ public class SPLMenu extends XMenu {
 
     @Override
     protected void run() {
-        InputMenu im = new InputMenu();
-        this.matrixMenu = im.getMatrix();
+        this.inisiasiMatrix();
         this.display();
         int metode = select(1,4);
         switch(metode){
             case 1:
                 new GaussMenu(this.matrixMenu);
+                break;
+            case 2:
+                new GaussMenu(this.matrixMenu, this);
+                break;
             default:
                 break;
         }

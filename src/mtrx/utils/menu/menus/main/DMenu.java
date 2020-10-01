@@ -12,8 +12,7 @@ public class DMenu extends XMenu{
 
     @Override
     protected void run() {
-        InputMenu im = new InputMenu();
-        this.matrixMenu = im.getMatrix();
+        this.inisiasiMatrix();
         this.display();
         int metode = select(1,2);
         switch(metode){
@@ -30,6 +29,7 @@ public class DMenu extends XMenu{
 
     @Override
     protected void display() {
+        print();
         print("Metode Determinan");
         print("[1] Metode Reduksi Baris");
         print("[2] Metode Ekpansi Kofaktor");

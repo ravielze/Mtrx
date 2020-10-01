@@ -19,8 +19,14 @@ public class DRBMenu extends XMenu{
             case 2:
                 this.toFile();
             default:
-                this.matrixMenu.show(false);
-                System.out.printf("Determinannya adalah %s", NUtils.TOSTRING(this.matrixMenu.determinant()));
+                this.statusprint("Determinan dengan Reduksi Baris");
+                double sol = this.matrixMenu.determinant();
+                if (Double.isNaN(sol)){
+                    print("Matriks ini tidak memiliki determinan.");
+                } else {
+                    print("%s", NUtils.TOSTRING(sol));
+                }
+                print();
                 break;
         }
         this.toConsole();
@@ -28,6 +34,7 @@ public class DRBMenu extends XMenu{
 
     @Override
     protected void display() {
+        print();
         print("Determinan - Reduksi Baris");
         print("> Lihat solusi di?");
         print("[1] Console");
