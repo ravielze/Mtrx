@@ -1,6 +1,8 @@
-package mtrx.utils.menu.menus;
+package mtrx.utils.menu.menus.main;
 
 import mtrx.utils.menu.XMenu;
+import mtrx.utils.menu.menus.sub.DEKMenu;
+import mtrx.utils.menu.menus.sub.DRBMenu;
 
 public class DMenu extends XMenu{
 

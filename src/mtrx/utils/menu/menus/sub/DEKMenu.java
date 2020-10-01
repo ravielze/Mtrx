@@ -1,29 +1,26 @@
-package mtrx.utils.menu.menus;
+package mtrx.utils.menu.menus.sub;
 
 import mtrx.matrix.Matrix;
-import mtrx.methods.GaussJordan;
-import mtrx.methods.SolutionExaminer;
+import mtrx.utils.NUtils;
 import mtrx.utils.menu.XMenu;
 
-public class GJMenu extends XMenu {
+public class DEKMenu extends XMenu{
 
-    public GJMenu(Matrix matrix) {
+    public DEKMenu(Matrix matrix){
         this.matrixMenu = matrix;
         this.run();
     }
 
     @Override
     protected void run() {
-        GaussJordan g = new GaussJordan(this.matrixMenu);
-        SolutionExaminer se = new SolutionExaminer(g);
-        int select = select(1,2);
         this.display();
-        switch (select){
+        int s = select(1,2);
+        switch (s){
             case 2:
                 this.toFile();
             default:
-                g.getResult().show(false);
-                se.showSolution();
+                this.matrixMenu.show(false);
+                System.out.printf("Determinannya adalah %s", NUtils.TOSTRING(this.matrixMenu.determinantWithCofactor()));
                 break;
         }
         this.toConsole();
@@ -31,7 +28,7 @@ public class GJMenu extends XMenu {
 
     @Override
     protected void display() {
-        print("Matriks balikan - Gauss-Jordan");
+        print("Determinan - Ekspansi Kofaktor");
         print("> Lihat solusi di?");
         print("[1] Console");
         print("[2] File");

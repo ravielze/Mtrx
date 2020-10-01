@@ -1,4 +1,4 @@
-package mtrx.utils.menu.menus;
+package mtrx.utils.menu.menus.main;
 
 import mtrx.MtrxMain;
 import mtrx.matrix.Matrix;

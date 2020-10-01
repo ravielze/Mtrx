@@ -1,6 +1,7 @@
-package mtrx.utils.menu.menus;
+package mtrx.utils.menu.menus.main;
 
 import mtrx.utils.menu.XMenu;
+import mtrx.utils.menu.menus.sub.GaussMenu;
 
 public class SPLMenu extends XMenu {
 
