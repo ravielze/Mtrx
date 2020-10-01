@@ -107,6 +107,11 @@ public class SolutionExaminer {
                                 }
                                 break;
                             }
+                            else if (this.aug.getLeft().isAllXinCol(j, 0.0D)){
+                                idx++;
+                                fill[j] = idx;
+                                break;
+                            }
                             else if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 0)) i++;
                             else {
                                 idx++;
