@@ -75,12 +75,23 @@ public class Matrix implements IMatrix {
     public void show(boolean splFormat) {
         if (splFormat) {
             for (int i = 0; i < this.row; i++) {
+                boolean first = true;
                 for (int j = 0; j < this.col; j++) {
                     if (j != this.col - 1) {
                         if (NUtils.ISEQUAL(this.data[i][j], 0.0D)) continue;
-                        System.out.printf("%s%s%s",((j != 0 && this.data[i][j] > 0.0D) ? "+" : ""), NUtils.TOSTRING(this.data[i][j]), Base26.toBase26(j));
+                        String kons = NUtils.TOSTRING(this.data[i][j]);
+
+                        if (NUtils.ISEQUAL(this.data[i][j], 1.0D) || NUtils.ISEQUAL(this.data[i][j], -1.0D)){
+                            kons = (NUtils.ISEQUAL(this.data[i][j], 1.0D) ? (first ? "" : " + ") : (first ? "-" : " - "));
+                        } else if (this.data[i][j] > 0.0D && !first){
+                            kons = " + " + kons;
+                        } else if (this.data[i][j] < 0.0D && !first){
+                            kons = " - " + NUtils.TOSTRING(this.data[i][j]*-1.0D);
+                        }
+                        System.out.printf("%s%s", kons, Base26.toBase26(j));
+                        first = false;
                     } else {
-                        System.out.println("= " + this.data[i][j]);
+                        System.out.println(" = " + NUtils.TOSTRING(this.data[i][j]));
                     }
                 }
             }

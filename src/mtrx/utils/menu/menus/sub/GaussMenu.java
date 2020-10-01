@@ -70,7 +70,7 @@ public class GaussMenu extends XMenu{
                     }
                     print();
                     print("Augmented Matriks:");
-                    i.getResult().show(false);
+                    i.getResult().show();
                 }
                 print();
                 break;

@@ -18,10 +18,11 @@ public class Mtrx {
     }
 
     public static void main(String args[]){
-        Matrix m = (new MatrixBuilder()).fileInput("terkutuk.txt").build();
+        Matrix m = (new MatrixBuilder()).fileInput("t.txt").build();
         Gauss g = new Gauss(m);
+        enter();
+        g.getResult().show();
         SolutionExaminer se = new SolutionExaminer(g);
-        se.showSolution();
         /*Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
         Gauss g = new Gauss(m2);
         Crammer c = new Crammer(m);

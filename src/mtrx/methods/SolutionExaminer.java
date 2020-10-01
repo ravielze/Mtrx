@@ -141,7 +141,14 @@ public class SolutionExaminer {
                             if (k != this.aug.getColCount()-2) {
                                 if (NUtils.ISNOTEQUAL(this.aug.getLeft().getElement(i, k), 0)) {
                                     if (found && this.aug.getLeft().getElement(i, k) < 0) System.out.printf(" + ");
-                                    System.out.printf("%s", NUtils.TOSTRING(this.aug.getLeft().getElement(i, k)*-1));
+                                    
+                                    double kons = this.aug.getLeft().getElement(i, k)*-1.0D;
+                                    if (NUtils.ISEQUAL(kons, -1.0D) || NUtils.ISEQUAL(kons, 1.0D)){
+                                        System.out.print(NUtils.ISEQUAL(kons, 1.0D) ? "" : "-");
+                                    } else {
+                                        System.out.printf("%s", NUtils.TOSTRING(kons));
+                                    }
+
                                     if (fill[k] != 0) System.out.printf("%s ", Base26.toBase26(fill[k]-1));
                                     found = true;
                                 }

@@ -30,11 +30,9 @@ public interface IAugMatrix {
     public Matrix getRight();
 
     /**
-     * Mengeluarkan matrix ke dalam layar
-     * @param splFormat jika true mengeluarkan dalam bentuk SPL (aX1+bX2+...=k)
-     *                  jika false mengeluarkan dalam bentuk tabel dengan separasi '|'
+     * Mengeluarkan matrix ke dalam layar dengan separasi '|'
      */
-    public void show(boolean splFormat);
+    public void show();
 
     /**
      * Mengeluarkan matrix ke suatu file

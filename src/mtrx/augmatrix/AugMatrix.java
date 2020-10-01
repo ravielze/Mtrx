@@ -43,24 +43,13 @@ public class AugMatrix implements IAugMatrix {
     }
 
     @Override
-    public void show(boolean splFormat) {
+    public void show() {
         int i, j;
-        if (splFormat) {
-            for (i = 0; i < this.left.getRowCount(); i++) {
-                for (j = 0; j < this.left.getColCount(); j++) {
-                    if (NUtils.ISEQUAL(this.left.getElement(i, j), 0.0D)) continue;
-                    System.out.printf("%s%s%s", ((j != 0 && this.left.getElement(i, j) > 0.0D) ? "+" : ""),NUtils.TOSTRING(this.left.getElement(i, j)), Base26.toBase26(j));
-                }
-                System.out.printf("= %s\n", NUtils.TOSTRING(this.right.getElement(i, 0)));
+        for (i = 0; i < this.left.getRowCount(); i++) {
+            for (j = 0; j < this.left.getColCount(); j++) {
+                System.out.printf("%s ", NUtils.TOSTRING(this.left.getElement(i, j)));
             }
-        }
-        else {
-            for (i = 0; i < this.left.getRowCount(); i++) {
-                for (j = 0; j < this.left.getColCount(); j++) {
-                    System.out.printf("%s ", NUtils.TOSTRING(this.left.getElement(i, j)));
-                }
-                System.out.printf("| %s\n", NUtils.TOSTRING(this.right.getElement(i, 0)));
-            }
+            System.out.printf("| %s\n", NUtils.TOSTRING(this.right.getElement(i, 0)));
         }
     }
 
