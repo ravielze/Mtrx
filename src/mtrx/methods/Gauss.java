@@ -37,12 +37,7 @@ public class Gauss implements GaussMethod {
         for (int i = 0; i < this.result.getRowCount(); i++){
             this.result.fixZeroRow(i);
         }
-        int number =0;
         while (true){
-            number++;
-            System.out.printf("[%d]\n", number);
-            this.result.show(false);
-            System.out.println();
             if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D)){
                 col++;
             } else if (NUtils.ISNOTEQUAL(this.result.getLeft().getElement(row, col), 1.0D)){

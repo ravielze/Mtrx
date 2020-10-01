@@ -35,7 +35,6 @@ public class GaussJordan implements GaussMethod {
             return;
         }
         while (true){
-            System.out.println("GJ");
             if (NUtils.ISEQUAL(this.result.getLeft().getElement(row, col), 0.0D)){
                 col++;
             } else if (NUtils.ISNOTEQUAL(this.result.getLeft().getElement(row, col), 1.0D)){
