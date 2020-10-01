@@ -155,7 +155,7 @@ public class SolutionExaminer {
                             }
                             else {
                                 if (NUtils.ISNOTEQUAL(this.aug.getRight().getElement(i, 0), 0)) {
-                                    if (found) System.out.printf("+ ");
+                                    if (found && this.aug.getRight().getElement(i, 0) >= 0) System.out.printf("+ ");
                                     System.out.printf("%s", NUtils.TOSTRING(this.aug.getRight().getElement(i, 0)));
                                     if (fill[k] != 0) System.out.printf("%s ", Base26.toBase26(fill[k]-1));
                                 }
