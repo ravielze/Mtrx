@@ -4,11 +4,11 @@ import mtrx.MtrxMain;
 
 public class NUtils {
 
-    public static final boolean ISNOTEQUAL(double val, double val2){
+    public static boolean ISNOTEQUAL(double val, double val2){
         return Math.abs(val-val2) >= Math.pow(10, -1*MtrxMain.PRECISION);
     }
 
-    public static final double PRECISE(double val){
+    public static double PRECISE(double val){
         if (Double.isNaN(val) || Double.isInfinite(val)) return val;
         if (Math.abs(val) < Math.pow(10, -1*MtrxMain.PRECISION)) return 0.0D;
 
@@ -16,11 +16,11 @@ public class NUtils {
         return Double.valueOf(str);
     }
 
-    public static final boolean ISEQUAL(double val, double val2){
+    public static boolean ISEQUAL(double val, double val2){
         return Math.abs(val-val2) < Math.pow(10, -1*MtrxMain.PRECISION);
     }
 
-    public static final String TOSTRING(double val){
+    public static String TOSTRING(double val){
         if (Double.isNaN(val)) return "NaN";
         if (Double.isInfinite(val)) return "Infinite";
 

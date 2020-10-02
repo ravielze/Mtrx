@@ -11,8 +11,10 @@ public class MtrxMain {
      * apabila menggunakan angka-angka yang besar.
      * Saran: terapkan angka penting.
      * Defaultnya 0.001 atau 3
+     * 
+     * UPDATE: ganti via main menu, bisa ganti saat program dijalankan
      */
-    public static final int PRECISION = 5;
+    public static int PRECISION = 3;
 
     /**
      * tidak usah diubah, scanner IO untuk seluruh program.

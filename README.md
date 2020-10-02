@@ -68,3 +68,7 @@ Linux/MacOS:
 1. Compile all files using this command: `javac -d ../bin ./mtrx/*.java`
 2. Goto Folder bin using this command: `cd bin`
 3. Run the main program using this command `java mtrx.MtrxMain`
+
+# Programmer's Note
+
+Before calculating very big/small number, change decimal precision in the main menu (section 6).
