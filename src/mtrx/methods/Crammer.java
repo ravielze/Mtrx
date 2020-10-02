@@ -34,6 +34,10 @@ public class Crammer implements SPLMethods {
         for (int j = 0; j < this.aug.getLeft().getColCount(); j++) {
             result[j] = ((new MatrixBuilder(this.aug.getLeft())).cutColoumn(j).insertColoumn(j, temp).build()).
             determinant() / det;
+            if (Double.isInfinite(result[j]) || Double.isNaN(result[j])){
+                this.hasSolution = false;
+                return;
+            }
         }
         Matrix mresult = new MatrixBuilder(this.aug.getLeft().getColCount()).insertColoumn(this.aug.getLeft().getColCount(), result).build();
         this.result = new AugMatrix(mresult);

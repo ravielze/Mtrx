@@ -15,27 +15,36 @@ public class MBMenu extends XMenu {
 
     @Override
     protected void run() {
-        this.statusprint("Sistem Persamaan Linear dengan Metode Matriks Balikan");
-        InverseGaussJordan i = new InverseGaussJordan(this.matrixMenu);
-        if (i.hasSolution()){
-            print("Matriks ini tidak memiliki invers.\nTidak bisa melanjutkan metode matriks balikan.");
-        } else {
-            print("Matriks A Invers:");
-            Matrix A = i.getInvers();
-            A.show(false);
-            print();
-            print("Silakan masukkan matrix B");
-            this.inisiasiMatrix();
-            Matrix B = this.matrixMenu;
-            if (A.getColCount() != B.getRowCount()){
-                print("Matrix B tidak valid.");
-            } else {
-                print("Hasil: ");
-                InverseSPL ispl = new InverseSPL(A, B);
-                SolutionExaminer se = new SolutionExaminer(ispl);
-                se.showSolution();
-            }
+        this.display();
+        int s = select(1,2);
+        switch (s){
+            case 2:
+                this.toFile();
+            default:
+                this.statusprint("Sistem Persamaan Linear dengan Metode Matriks Balikan");
+                InverseGaussJordan i = new InverseGaussJordan(this.matrixMenu);
+                if (i.hasSolution()){
+                    print("Matriks ini tidak memiliki invers.\nTidak bisa melanjutkan metode matriks balikan.");
+                } else {
+                    print("Matriks A Invers:");
+                    Matrix A = i.getInvers();
+                    A.show(false);
+                    print();
+                    print("Silakan masukkan matrix B");
+                    this.inisiasiMatrix();
+                    Matrix B = this.matrixMenu;
+                    if (A.getColCount() != B.getRowCount()){
+                        print("Matrix B tidak valid.");
+                    } else {
+                        print("Hasil: ");
+                        InverseSPL ispl = new InverseSPL(A, B);
+                        SolutionExaminer se = new SolutionExaminer(ispl);
+                        se.showSolution();
+                    }
+                }
+                break;
         }
+        this.toConsole();
     }
 
     @Override

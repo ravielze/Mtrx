@@ -12,7 +12,7 @@ public class MtrxMain {
      * Saran: terapkan angka penting.
      * Defaultnya 0.001 atau 3
      */
-    public static final int PRECISION = 3;
+    public static final int PRECISION = 5;
 
     /**
      * tidak usah diubah, scanner IO untuk seluruh program.

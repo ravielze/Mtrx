@@ -1,6 +1,7 @@
 package mtrx.utils.menu.menus.main;
 
 import mtrx.utils.menu.XMenu;
+import mtrx.utils.menu.menus.sub.MRMenu;
 
 public class MainMenu extends XMenu{
 
@@ -24,7 +25,7 @@ public class MainMenu extends XMenu{
                 new IntMenu();
                 break;
             case 5:
-                //TODO regresi linear
+                new MRMenu();
                 break;
             default:
                 end = true;
