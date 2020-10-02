@@ -1,5 +1,5 @@
-# mtrx
-Tugas Besar Algeo I | 2020
+# Project MTRX - ALGEO01-19002
+Tugas Besar Algeo I - Group 2 | 2020
 
 `Tugas Besar Algeo I` is a matrice calculator which calculates Linear Equation System, Determinant, Inverse, Polynomial Interpolation, and Multiple Linear Regression. Linear Equation System can be calculated by using Gaussian Elimination, Gauss-Jordan Elimination, Cramer's Rule, and Inverse, while Determinant can be calculated by using Line Reduction and Cofactor Expansion. Lastly, Inverse can be calculated by using Gauss-Jordan Elimination and Adjoint. These calculations may round up to `n` decimal places.
 
