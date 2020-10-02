@@ -44,6 +44,7 @@ public abstract class XMenu {
     }
 
     protected void statusprint(String namametode, boolean SPLformat){
+        print();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
         String dt = LocalDateTime.now().format(formatter);
         print("> " + namametode + " [" + dt + "]");
