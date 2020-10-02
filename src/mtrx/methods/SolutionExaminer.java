@@ -129,6 +129,7 @@ public class SolutionExaminer {
                             }
                         }
                     }
+                    System.out.println(fill[j]);
                 }
                 
                 for (int j = 0; j < this.aug.getColCount()-2; j++) {
@@ -159,6 +160,9 @@ public class SolutionExaminer {
                                     if (found && this.aug.getRight().getElement(i, 0) >= 0) System.out.printf("+ ");
                                     System.out.printf("%s", NUtils.TOSTRING(this.aug.getRight().getElement(i, 0)));
                                     if (fill[k] != 0) System.out.printf("%s ", Base26.toBase26(fill[k]-1));
+                                }
+                                else if (NUtils.ISEQUAL(this.aug.getRight().getElement(i, 0), 0) && !found) {
+                                    System.out.printf("%s", NUtils.TOSTRING(this.aug.getRight().getElement(i, 0)));
                                 }
                             }
                         }
