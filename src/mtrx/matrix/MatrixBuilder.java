@@ -181,6 +181,16 @@ public class MatrixBuilder {
         return new Matrix(this.row, this.col, this.data);
     }
 
+    public Matrix buildXPow(double x, int pow){
+        this.row = 1;
+        this.col = pow;
+        this.data = new double[1][pow];
+        for (int i = 0; i < pow; i++){
+            this.data[0][i] = Math.pow(x, i);
+        }
+        return new Matrix(this.row, this.col, this.data);
+    }
+
     /**
      * Regresi Linear Berganda
      * @return Matrix
