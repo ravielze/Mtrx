@@ -54,20 +54,21 @@ mtrx/
 
 # How to run?
 
+## Run Manually
+
+1. Goto Folder src using this command : `cd src`
+2. Compile all files using this command: `javac -d ../bin ./mtrx/*.java`
+3. Goto Folder bin using this command: `cd bin`
+4. Run the main program using this command `java mtrx.MtrxMain`
+
+## Run Using Windows Batch File
+
 Windows:
 1. Clone this project
 2. Go inside the directory on the terminal (cd ../mtrx)
 2. Type menu.bat or ./menu.bat on the terminal
 
-Linux/MacOS:
-1. Compile all .java files in src to somewhere
-2. Run using java mtrx.MtrxMain
-
-# Run Manually
-
-1. Compile all files using this command: `javac -d ../bin ./mtrx/*.java`
-2. Goto Folder bin using this command: `cd bin`
-3. Run the main program using this command `java mtrx.MtrxMain`
+Linux/MacOS: There's currently no shell script for Linux/MacOs, please run manually.
 
 # Programmer's Note
 
