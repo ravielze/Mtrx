@@ -17,6 +17,8 @@ public class InverseGaussJordan implements GaussMethod {
         Matrix Identity = new MatrixBuilder(matrix.getRowCount()).build();
         this.result = new AugMatrix(matrix, Identity);
         this.operate();
+        this.result.getLeft().updateTrait();
+        this.result.getRight().updateTrait();
         if ((!this.getResult().getLeft().hasTrait(MatrixTrait.IDENTITY))
                 || (!this.getResult().getLeft().hasTrait(MatrixTrait.SQUARE))) {
             this.hasSolution = false;

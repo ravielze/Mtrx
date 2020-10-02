@@ -14,11 +14,13 @@ public class Crammer implements SPLMethods {
     public Crammer(Matrix matrix) {
         this.originalMatrix = matrix;
         this.aug = new AugMatrix(matrix);
+        this.result = new AugMatrix(matrix);
+        this.hasSolution = false;
+        this.aug.getLeft().updateTrait();
+        this.aug.getRight().updateTrait();
         if (this.aug.getLeft().hasTrait(MatrixTrait.SQUARE)){
-            this.operate();
             this.hasSolution = true;
-        } else {
-            this.hasSolution = false;
+            this.operate();
         }
     }
 
