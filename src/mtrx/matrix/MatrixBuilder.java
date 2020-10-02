@@ -154,35 +154,46 @@ public class MatrixBuilder {
     }
 
     /**
+     * Matrix Builder as Interpolation Matrix.
+     * Column's size has to be 2. Ignored if greater than two.
+     * Column 1: X, Column 2: Y.
+     * @throws Exception if row's size less than or equal to 0 or column's size is less than 2.
+     * @return the interpolation matrix created
+     */
+    public Matrix buildAsInterpolation() throws Exception {
+        if (this.row <= 0 ) throw new Exception("Row's size cannot be less than or equal to zero.");
+        if (this.col < 2 ) throw new Exception("Column's size cannot be less than 2.");
+        
+        int newRow = this.row;
+        int newCol = this.row + 1;
+        double[][] newData = new double[newRow][newCol];
+        for (int i = 0; i < newRow; i++){
+            double x = this.data[i][0];
+            double y = this.data[i][1];
+            for (int j = 0; j < newCol; j++){
+                newData[i][j] = (j != newCol-1) ? Math.pow(x, j) : y;
+            }
+        }
+
+        this.row = newRow;
+        this.col = newCol;
+        this.data = newData;
+        return new Matrix(this.row, this.col, this.data);
+    }
+
+    /**
      * Fungsi menerima input terminal/console.
-     * @param matrixStyle false jika menggunakan style interpolasi
      * @return MatrixBuilder
      */
-    public MatrixBuilder consoleInput(boolean matrixStyle){
-        if (matrixStyle){
-            System.out.print("Masukkan Baris: ");
-            this.row = MtrxMain.scn.nextInt();
-            System.out.print("Masukkan Kolom: ");
-            this.col = MtrxMain.scn.nextInt();
-            this.data = new double[this.row][this.col];
-            for (int i=0; i<this.row; i++) {
-                for (int j=0 ; j<this.col; j++){
-                    if (MtrxMain.scn.hasNextDouble())
-                    this.data[i][j] = MtrxMain.scn.nextDouble();
-                }
-            }
-        } else {
-            System.out.print("Masukkan Berapa Pasangan: ");
-            this.row = MtrxMain.scn.nextInt();
-            this.col = this.row+1;
-            this.data = new double[this.row][this.col];
-            System.out.println("Masukkan Data: ");
-            for (int i = 0; i < this.row; i++){
-                double x = MtrxMain.scn.nextDouble();
-                double y = MtrxMain.scn.nextDouble();
-                for (int j = 0; j < this.col; j++){
-                    this.data[i][j] = (j != this.col-1) ? Math.pow(x, j) : y;
-                }
+    public MatrixBuilder consoleInput(){
+        System.out.print("Masukkan Baris: ");
+        this.row = MtrxMain.scn.nextInt();
+        System.out.print("Masukkan Kolom: ");
+        this.col = MtrxMain.scn.nextInt();
+        this.data = new double[this.row][this.col];
+        for (int i=0; i<this.row; i++) {
+            for (int j=0 ; j<this.col; j++){
+                this.data[i][j] = MtrxMain.scn.nextDouble();
             }
         }
         return this;

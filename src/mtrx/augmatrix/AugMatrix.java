@@ -3,7 +3,6 @@ package mtrx.augmatrix;
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
 import mtrx.matrix.MatrixOperation;
-import mtrx.utils.Base26;
 import mtrx.utils.NUtils;
 
 public class AugMatrix implements IAugMatrix {

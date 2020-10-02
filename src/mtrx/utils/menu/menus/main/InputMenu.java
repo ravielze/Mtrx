@@ -28,7 +28,7 @@ public class InputMenu extends XMenu {
     }
 
     private Matrix createMatrixfromConsole(){
-        return (new MatrixBuilder()).consoleInput(true).build();
+        return (new MatrixBuilder()).consoleInput().build();
     }
 
     private Matrix createMatrixfromFile(){

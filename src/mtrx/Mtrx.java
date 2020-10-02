@@ -1,9 +1,10 @@
 package mtrx;
 
+import java.util.Scanner;
+
 import mtrx.matrix.Matrix;
 import mtrx.matrix.MatrixBuilder;
-import mtrx.methods.Gauss;
-import mtrx.methods.SolutionExaminer;
+import mtrx.utils.NUtils;
 
 public class Mtrx {
 
@@ -18,11 +19,13 @@ public class Mtrx {
     }
 
     public static void main(String args[]){
-        Matrix m = (new MatrixBuilder()).fileInput("t.txt").build();
-        Gauss g = new Gauss(m);
+        MtrxMain.scn = new Scanner(System.in);
+        try {
+            Matrix m = (new MatrixBuilder()).fileInput("int.txt").buildAsInterpolation();
+            m.show(true);
+        } catch (Exception ignored){ignored.printStackTrace();}
         enter();
-        g.getResult().show();
-        SolutionExaminer se = new SolutionExaminer(g);
+        MtrxMain.scn.close();
         /*Matrix m2 = (new MatrixBuilder()).consoleInput(true).build();
         Gauss g = new Gauss(m2);
         Crammer c = new Crammer(m);
