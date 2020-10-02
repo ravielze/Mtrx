@@ -11,3 +11,9 @@ Windows:
 Linux/MacOS:
 1. Compile all .java files in src to somewhere
 2. Run using java mtrx.MtrxMain
+
+# Run Manually
+
+1. Compile all files using this command: `javac -d ../bin ./mtrx/*.java`
+2. Goto Folder bin using this command: `cd bin`
+3. Run the main program using this command `java mtrx.MtrxMain`

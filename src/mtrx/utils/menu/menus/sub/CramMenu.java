@@ -1,6 +1,8 @@
 package mtrx.utils.menu.menus.sub;
 
 import mtrx.matrix.Matrix;
+import mtrx.methods.Crammer;
+import mtrx.methods.SolutionExaminer;
 import mtrx.utils.menu.XMenu;
 
 public class CramMenu extends XMenu {
@@ -17,8 +19,16 @@ public class CramMenu extends XMenu {
         switch(sel) {
             case 2:
             this.toFile();
-                break;
             default:
+                this.statusprint("SPL dengan Crammer");
+                Crammer cm = new Crammer(this.matrixMenu);
+                if (!cm.hasSolution()){
+                    print("Matriks ini tidak memiliki solusi atau tidak bisa memakai Crammer. Silakan coba pakai cara lain. Rekomendasi: Gauss/GaussJordan");
+                } else {
+                    SolutionExaminer se = new SolutionExaminer(cm);
+                    se.showSolution();
+                }
+                print();
                 break;
         }
         this.toConsole();

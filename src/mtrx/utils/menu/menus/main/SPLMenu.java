@@ -1,6 +1,7 @@
 package mtrx.utils.menu.menus.main;
 
 import mtrx.utils.menu.XMenu;
+import mtrx.utils.menu.menus.sub.CramMenu;
 import mtrx.utils.menu.menus.sub.GaussMenu;
 
 public class SPLMenu extends XMenu {
@@ -13,7 +14,7 @@ public class SPLMenu extends XMenu {
     protected void run() {
         this.inisiasiMatrix();
         this.display();
-        int metode = select(1,4);
+        int metode = select(1,5);
         switch(metode){
             case 1:
                 new GaussMenu(this.matrixMenu);
@@ -25,7 +26,7 @@ public class SPLMenu extends XMenu {
                 //TODO matriks balikan
                 break;
             case 4:
-                //TODO crammer
+                new CramMenu(this.matrixMenu);
                 break;
             case 5:
                 MainMenu.end = true;

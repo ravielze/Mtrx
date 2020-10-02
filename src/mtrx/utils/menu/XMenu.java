@@ -11,7 +11,7 @@ import mtrx.utils.menu.menus.main.InputMenu;
 
 public abstract class XMenu {
 
-    private static PrintStream console;
+    private static PrintStream console = System.out;
 
     /**
      * Matrix pada menu ini, nilainya null jika tidak ada

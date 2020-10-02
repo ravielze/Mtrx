@@ -46,7 +46,7 @@ public class Crammer implements SPLMethods {
 
     @Override
     public AugMatrix getResult() {
-        return (this.hasSolution() ? this.result : null);
+        return this.result;
     }
 
     @Override
