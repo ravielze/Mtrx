@@ -14,7 +14,7 @@ public class InversMenu extends XMenu {
     protected void run() {
         this.inisiasiMatrix();
         this.display();
-        int choice = select(1, 2);
+        int choice = select(1, 3);
         switch (choice) {
             case 1:
                 new GaussMenu(this.matrixMenu, this);
@@ -22,6 +22,8 @@ public class InversMenu extends XMenu {
             case 2:
                 new AdjMenu(this.matrixMenu);
                 break;
+            case 3:
+                MainMenu.end = true;
             default:
                 break;
         }

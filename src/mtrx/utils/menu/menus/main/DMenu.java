@@ -14,7 +14,7 @@ public class DMenu extends XMenu{
     protected void run() {
         this.inisiasiMatrix();
         this.display();
-        int metode = select(1,2);
+        int metode = select(1,3);
         switch(metode){
             case 1:
                 new DRBMenu(this.matrixMenu);
@@ -22,6 +22,8 @@ public class DMenu extends XMenu{
             case 2:
                 new DEKMenu(this.matrixMenu);
                 break;
+            case 3:
+                MainMenu.end = true;
             default:
                 break;
         }
@@ -33,6 +35,7 @@ public class DMenu extends XMenu{
         print("Metode Determinan");
         print("[1] Metode Reduksi Baris");
         print("[2] Metode Ekpansi Kofaktor");
+        print("[3] Keluar");
     }
     
 }

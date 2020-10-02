@@ -21,6 +21,14 @@ public class SPLMenu extends XMenu {
             case 2:
                 new GaussMenu(this.matrixMenu, this);
                 break;
+            case 3:
+                //TODO matriks balikan
+                break;
+            case 4:
+                //TODO crammer
+                break;
+            case 5:
+                MainMenu.end = true;
             default:
                 break;
         }
@@ -33,6 +41,7 @@ public class SPLMenu extends XMenu {
         print("[2] Metode eliminasi Gauss-Jordan");
         print("[3] Metode matriks balikan");
         print("[4] Kaidah Cramer");
+        print("[5] Keluar");
 
     }
     

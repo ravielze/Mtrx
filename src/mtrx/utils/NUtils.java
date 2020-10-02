@@ -1,30 +1,30 @@
 package mtrx.utils;
 
-import mtrx.Mtrx;
+import mtrx.MtrxMain;
 
 public class NUtils {
 
     public static final boolean ISNOTEQUAL(double val, double val2){
-        return Math.abs(val-val2) >= Math.pow(10, -1*Mtrx.PRECISION);
+        return Math.abs(val-val2) >= Math.pow(10, -1*MtrxMain.PRECISION);
     }
 
     public static final double PRECISE(double val){
         if (Double.isNaN(val) || Double.isInfinite(val)) return val;
-        if (Math.abs(val) < Math.pow(10, -1*Mtrx.PRECISION)) return 0.0D;
+        if (Math.abs(val) < Math.pow(10, -1*MtrxMain.PRECISION)) return 0.0D;
 
-        String str = String.format("%." + Mtrx.PRECISION + "f", val);
+        String str = String.format("%." + MtrxMain.PRECISION + "f", val);
         return Double.valueOf(str);
     }
 
     public static final boolean ISEQUAL(double val, double val2){
-        return Math.abs(val-val2) < Math.pow(10, -1*Mtrx.PRECISION);
+        return Math.abs(val-val2) < Math.pow(10, -1*MtrxMain.PRECISION);
     }
 
     public static final String TOSTRING(double val){
         if (Double.isNaN(val)) return "NaN";
         if (Double.isInfinite(val)) return "Infinite";
 
-        String all = String.format("%." + Mtrx.PRECISION + "f", val);
+        String all = String.format("%." + MtrxMain.PRECISION + "f", val);
         int countZeroafterDot = 0;
         for (int i=all.indexOf(".")+1;i < all.length(); i++){
             if (all.charAt(i) == '0'){
@@ -46,9 +46,9 @@ public class NUtils {
         }
         String result = front + "." + back;
 
-        for (int pow=Mtrx.PRECISION;pow >= 1;pow--){
+        for (int pow=MtrxMain.PRECISION;pow >= 1;pow--){
             int tenth = (int) Math.pow(10, pow);
-            if (pow == Mtrx.PRECISION && backNumber%tenth == 0){
+            if (pow == MtrxMain.PRECISION && backNumber%tenth == 0){
                 result = front;
                 break;
             } else if (backNumber%tenth == 0){

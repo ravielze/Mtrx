@@ -48,7 +48,11 @@ public class AugMatrix implements IAugMatrix {
             for (j = 0; j < this.left.getColCount(); j++) {
                 System.out.printf("%s ", NUtils.TOSTRING(this.left.getElement(i, j)));
             }
-            System.out.printf("| %s\n", NUtils.TOSTRING(this.right.getElement(i, 0)));
+            System.out.print("| ");
+            for (j = 0; j < this.right.getColCount(); j++) {
+                System.out.printf("%s ", NUtils.TOSTRING(this.right.getElement(i, j)));
+            }
+            System.out.println();
         }
     }
 
