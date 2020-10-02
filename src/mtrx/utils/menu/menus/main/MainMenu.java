@@ -19,6 +19,7 @@ public class MainMenu extends XMenu{
                 break;
             case 3:
                 new InversMenu();
+                break;
             case 4:
                 new IntMenu();
                 break;
@@ -36,7 +37,7 @@ public class MainMenu extends XMenu{
         System.out.println("Main Menu");
         System.out.println("[1] Sistem Persamaan Linear");
         System.out.println("[2] Determinan");
-        System.out.println("[3] Matriks Balikan");
+        System.out.println("[3] Inverse");
         System.out.println("[4] Interpolasi Polinom");
         System.out.println("[5] Regresi Linier Berganda");
         System.out.println("[6] Keluar");

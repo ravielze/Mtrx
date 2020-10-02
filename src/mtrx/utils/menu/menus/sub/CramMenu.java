@@ -21,7 +21,7 @@ public class CramMenu extends XMenu {
             default:
                 break;
         }
-
+        this.toConsole();
     }
 
     @Override

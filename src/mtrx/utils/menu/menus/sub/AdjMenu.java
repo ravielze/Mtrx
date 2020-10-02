@@ -13,8 +13,8 @@ public class AdjMenu extends XMenu {
     @Override
     protected void run() {
         Matrix adj = this.matrixMenu.inverse();
-        int select = select(1,2);
         this.display();
+        int select = select(1,2);
         switch (select){
             case 2:
                 this.toFile();

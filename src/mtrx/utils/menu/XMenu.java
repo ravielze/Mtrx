@@ -11,6 +11,8 @@ import mtrx.utils.menu.menus.main.InputMenu;
 
 public abstract class XMenu {
 
+    private static PrintStream console;
+
     /**
      * Matrix pada menu ini, nilainya null jika tidak ada
      */
@@ -64,6 +66,7 @@ public abstract class XMenu {
     }
 
     protected void toFile(){
+        console = System.out;
         try {
             File folder = new File(new File("../output").getCanonicalPath());
             if (!folder.exists()){
@@ -93,7 +96,7 @@ public abstract class XMenu {
     }
 
     protected void toConsole(){
-        System.setOut(System.out);
+        System.setOut(console);
     }
 
     protected void inisiasiMatrix(){
