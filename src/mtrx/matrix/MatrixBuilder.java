@@ -182,6 +182,26 @@ public class MatrixBuilder {
     }
 
     /**
+     * Regresi Linear Berganda
+     * @return Matrix
+     */
+    public Matrix buildAsMR(){
+        MatrixBuilder A = new MatrixBuilder(this.build());
+        double[] colAwal = new double[this.row];
+        for (int i = 0; i < this.row; i++){
+            colAwal[i] = 1.0D;
+        }
+        A.insertColoumn(0, colAwal);
+
+        MatrixBuilder B = new MatrixBuilder(A.build());
+        B.cutColoumn(this.col);
+        Matrix MA = A.build();
+        Matrix MB = B.build();
+        MB.transpose();
+        return MB.multiply(MA);
+    }
+
+    /**
      * Fungsi menerima input terminal/console.
      * @return MatrixBuilder
      */

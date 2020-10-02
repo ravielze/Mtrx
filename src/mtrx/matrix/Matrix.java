@@ -195,10 +195,10 @@ public class Matrix implements IMatrix {
                 Tdata[j][i] = this.data[i][j];
             }
         }
-
-        this.data = new double[this.col][this.row];
+        int temp = this.row;
+        this.row = this.col;
+        this.col = temp;
         this.data = Tdata;
-        // **********TOLONG DICEK***********
     }
 
     @Override
