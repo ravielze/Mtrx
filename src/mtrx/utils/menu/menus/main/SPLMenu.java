@@ -3,6 +3,7 @@ package mtrx.utils.menu.menus.main;
 import mtrx.utils.menu.XMenu;
 import mtrx.utils.menu.menus.sub.CramMenu;
 import mtrx.utils.menu.menus.sub.GaussMenu;
+import mtrx.utils.menu.menus.sub.MBMenu;
 
 public class SPLMenu extends XMenu {
 
@@ -23,7 +24,7 @@ public class SPLMenu extends XMenu {
                 new GaussMenu(this.matrixMenu, this);
                 break;
             case 3:
-                //TODO matriks balikan
+                new MBMenu(this.matrixMenu);
                 break;
             case 4:
                 new CramMenu(this.matrixMenu);
