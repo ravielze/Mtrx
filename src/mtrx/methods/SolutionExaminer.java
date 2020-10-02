@@ -129,7 +129,6 @@ public class SolutionExaminer {
                             }
                         }
                     }
-                    System.out.println(fill[j]);
                 }
                 
                 for (int j = 0; j < this.aug.getColCount()-2; j++) {
