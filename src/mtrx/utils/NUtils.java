@@ -25,16 +25,38 @@ public class NUtils {
         if (Double.isInfinite(val)) return "Infinite";
 
         String all = String.format("%." + Mtrx.PRECISION + "f", val);
-        String front = all.substring(0, all.indexOf("."));
-        String back = all.substring(all.indexOf(".")+1);
+        int countZeroafterDot = 0;
+        for (int i=all.indexOf(".")+1;i < all.length(); i++){
+            if (all.charAt(i) == '0'){
+                countZeroafterDot++;
+            } else{
+                break;
+            }
+        }
+        int potong = all.indexOf(".");
+        String front = all.substring(0, potong);
+        String back = all.substring(potong+1);
         int backNumber = Integer.valueOf(back);
 
+        String zero = "";
+        if (countZeroafterDot > 0){
+            for (int i=0; i < countZeroafterDot; i++){
+                zero += "0";
+            }
+        }
         String result = front + "." + back;
-        if (backNumber%1000 == 0){
-            result = front;
-        } else if (backNumber%100 == 0){
-            result = front + "." + Integer.toString(backNumber/100);
-        } else if (backNumber%10 == 0) result = front + "." + Integer.toString(backNumber/10);
+
+        for (int pow=Mtrx.PRECISION;pow >= 1;pow--){
+            int tenth = (int) Math.pow(10, pow);
+            if (pow == Mtrx.PRECISION && backNumber%tenth == 0){
+                result = front;
+                break;
+            } else if (backNumber%tenth == 0){
+                result = front + "." + zero + Integer.toString(backNumber/tenth);
+                break;
+            }
+        }
+
         if (result.equalsIgnoreCase("-0")) result = "0";
         return result;
     }
