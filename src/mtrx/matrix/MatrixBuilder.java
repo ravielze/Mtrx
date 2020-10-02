@@ -342,7 +342,7 @@ public class MatrixBuilder {
                     newData[i][j] = (k > value.length) ? 0 : value[k];
                     k++;
                 } else if (j > col) {
-                    newData[i][j+1] = this.data[i][j];
+                    newData[i][j] = this.data[i][j-1];
                 } else {
                     newData[i][j] = this.data[i][j];
                 }

@@ -97,7 +97,8 @@ public class SolutionExaminer {
                     int i = 0;
                     while (i < this.aug.getRowCount()) {
                         if (j < this.aug.getColCount()-2) {
-                            if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 1)) {
+                            if (this.aug.getLeft().findFirstXinCol(j, 1) != -1) i++;
+                            else if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 1)) {
                                 for (int l = 0; l < this.aug.getRowCount(); l++) { 
                                     if (NUtils.ISNOTEQUAL(this.aug.getLeft().getElement(l, j), 0) && l != i) {
                                         idx++;
@@ -112,7 +113,7 @@ public class SolutionExaminer {
                                 fill[j] = idx;
                                 break;
                             }
-                            else if (NUtils.ISEQUAL(this.aug.getLeft().getElement(0, j), 0)) i++;
+                            else if (NUtils.ISEQUAL(this.aug.getLeft().getElement(i, j), 0)) i++;
                             else {
                                 idx++;
                                 fill[j] = idx;
@@ -155,7 +156,7 @@ public class SolutionExaminer {
                             }
                             else {
                                 if (NUtils.ISNOTEQUAL(this.aug.getRight().getElement(i, 0), 0)) {
-                                    if (found) System.out.printf("+ ");
+                                    if (found && this.aug.getRight().getElement(i, 0) >= 0) System.out.printf("+ ");
                                     System.out.printf("%s", NUtils.TOSTRING(this.aug.getRight().getElement(i, 0)));
                                     if (fill[k] != 0) System.out.printf("%s ", Base26.toBase26(fill[k]-1));
                                 }
