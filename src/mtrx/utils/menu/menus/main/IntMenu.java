@@ -26,6 +26,7 @@ public class IntMenu extends XMenu {
                 GaussJordan gj = new GaussJordan(this.matrixMenu);
                 SolutionExaminer se = new SolutionExaminer(gj);
                 this.statusprint("Interpolasi", true);
+                se.showSolution();
                 switch (se.getResult()){
                     case SINGLE:
                         Matrix constant = new MatrixBuilder(gj.getResult().getRight()).cutColoumn(1).build();
